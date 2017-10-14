@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, TextInput, StyleSheet, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,6 +47,7 @@ class AvailabilityForm extends Component {
           placeholder="Event Name"
           value={this.state.eventName}
         />
+        <Icon name="rocket" size={30} color="#900" />
       </View>
     );
   }
