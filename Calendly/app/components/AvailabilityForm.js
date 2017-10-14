@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, TextInput, StyleSheet, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, TextInput, StyleSheet, Text, TouchableOpacity } from 'react-native';
+
+import IconRow from './IconRow';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +12,9 @@ const styles = StyleSheet.create({
     padding: 8,
     fontSize: 22,
   },
+  button: {
+    alignItems: 'center',
+  },
 });
 
 class AvailabilityForm extends Component {
@@ -19,11 +23,11 @@ class AvailabilityForm extends Component {
     this.state = {
       eventName: '',
       description: '',
+      duration: '',
       location: '',
-      earliestDay: '',
-      earliestTime: '',
-      notBusy: true,
-      buffer: 15,
+      dateRange: '',
+      // notBusy: true,
+      buffer: '',
       recipientEmail: '',
     };
   }
@@ -39,7 +43,7 @@ class AvailabilityForm extends Component {
             justifyContent: 'center',
           }}
         >
-          <Text style={{ fontSize: 22, fontWeight: 'bold', color: 'black' }}>New Event</Text>
+          <Text style={{ fontSize: 22, fontWeight: 'bold', color: 'white' }}>New Event</Text>
         </View>
         <TextInput
           style={styles.textBox}
@@ -47,7 +51,57 @@ class AvailabilityForm extends Component {
           placeholder="Event Name"
           value={this.state.eventName}
         />
-        <Icon name="rocket" size={30} color="#900" />
+        <TextInput
+          style={styles.textBox}
+          onChangeText={description => this.setState({ description })}
+          placeholder="Description / Instructions"
+          value={this.state.description}
+          multiline
+        />
+        <IconRow
+          icon="room"
+          onChange={location => this.setState({ location })}
+          text={this.state.location}
+          defaultText="Location"
+        />
+        <IconRow
+          icon="update"
+          onChange={duration => this.setState({ duration })}
+          text={this.state.duration}
+          defaultText="Duration"
+        />
+        <IconRow
+          icon="schedule"
+          onChange={buffer => this.setState({ buffer })}
+          text={this.state.buffer}
+          defaultText="Event Buffer"
+        />
+        <IconRow
+          icon="today"
+          onChange={dateRange => this.setState({ dateRange })}
+          text={this.state.dateRange}
+          defaultText="Date Range"
+        />
+        <IconRow
+          icon="email"
+          onChange={recipientEmail => this.setState({ recipientEmail })}
+          text={this.state.recipientEmail}
+          defaultText="Recipient Email"
+        />
+        <View style={styles.button}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#0C6991',
+              alignSelf: 'stretch',
+              alignItems: 'center',
+              padding: 16,
+            }}
+            onPress={() => console.log(this.state)}
+            activeOpacity={0.7}
+          >
+            <Text style={{ fontSize: 22, fontWeight: 'bold', color: 'white' }}>Submit</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
