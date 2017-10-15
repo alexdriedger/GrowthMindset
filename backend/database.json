@@ -1,0 +1,26 @@
+{
+    "event1":
+        {
+            "number": 1,
+            "name": "My cool event",
+            "short_name": "MCE"
+        },
+    "event2":
+        {
+            "number": 2,
+            "name": "Radical dude",
+            "short_name": "RD"
+        },
+    "event3":
+        {
+            "number": 3,
+            "name": "This app is so cool",
+            "short_name": "OMGWOW"
+        },
+    "event4":
+        {
+            "number": 4,
+            "name": "This is a test",
+            "short_name": "N/A"
+        }
+}
