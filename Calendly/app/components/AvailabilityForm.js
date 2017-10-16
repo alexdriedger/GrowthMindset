@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
-import { View, TextInput, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  ScrollView,
+} from 'react-native';
+import moment from 'moment';
 
 import IconRow from './IconRow';
+import TimeRow from './TimeRow';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,12 +39,44 @@ class AvailabilityForm extends Component {
       // notBusy: true,
       buffer: '',
       recipientEmail: '',
+      formCompleted: false,
+      showList: false,
     };
   }
 
+  async getAvailability() {
+    try {
+      const response = await fetch(`https://growthmindset-calendly.herokuapp.com/events/${this.state.dateRange}`);
+      const responseJson = await response.json();
+      console.log(responseJson.availablelist);
+      this.setState({ data: responseJson.availablelist });
+      console.log(this.state);
+      this.setState({ showList: true });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  renderSeparator = () => <View style={{ height: 10, backgroundColor: 'grey' }} />;
+
   render() {
+    if (this.state.formCompleted) {
+      if (this.state.showList) {
+        return (
+          <FlatList
+            data={this.state.data}
+            ItemSeparatorComponent={this.renderSeparator}
+            renderItem={(item) => {
+              console.log(item);
+              return <TimeRow text={moment(item.item).format('LT')} />;
+            }}
+          />
+        );
+      }
+      return <Text>Loading</Text>;
+    }
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View
           style={{
             height: 62,
@@ -96,13 +138,18 @@ class AvailabilityForm extends Component {
               alignItems: 'center',
               padding: 16,
             }}
-            onPress={() => console.log(this.state)}
+            onPress={() => {
+              this.setState({ formCompleted: true });
+              console.log(this.state);
+              console.log('Getting Availability');
+              this.getAvailability();
+            }}
             activeOpacity={0.7}
           >
             <Text style={{ fontSize: 22, fontWeight: 'bold', color: 'white' }}>Submit</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
