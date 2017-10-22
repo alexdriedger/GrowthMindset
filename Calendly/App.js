@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
-import AvailabilityForm from './app/components/AvailabilityForm';
+import rootReducer from './app/reducers/rootReducer';
+
+import ConnectedAvailabilityForm from './app/containers/ConnectedAvailabilityForm';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,12 +15,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class App extends Component {
+const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+
+class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <AvailabilityForm />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <ConnectedAvailabilityForm />
+        </View>
+      </Provider>
     );
   }
 }
+
+export default App;

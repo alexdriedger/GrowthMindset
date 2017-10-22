@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 import IconRow from './IconRow';
 import TimeRow from './TimeRow';
@@ -31,30 +32,21 @@ class AvailabilityForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      eventName: '',
-      description: '',
-      duration: '',
-      location: '',
-      dateRange: '',
-      // notBusy: true,
-      buffer: '',
-      recipientEmail: '',
+      availabilty: {
+        eventName: '',
+        description: '',
+        duration: '15',
+        location: '',
+        startDate: '2017-10-24',
+        endDate: '2017-10-26',
+        buffer: '10',
+        recipientEmail: 'spencerspenst@gmail.com',
+        earliestTime: '10:00',
+        latestTime: '18:00',
+      },
       formCompleted: false,
       showList: false,
     };
-  }
-
-  async getAvailability() {
-    try {
-      const response = await fetch(`https://growthmindset-calendly.herokuapp.com/events/${this.state.dateRange}`);
-      const responseJson = await response.json();
-      console.log(responseJson.availablelist);
-      this.setState({ data: responseJson.availablelist });
-      console.log(this.state);
-      this.setState({ showList: true });
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   renderSeparator = () => <View style={{ height: 10, backgroundColor: 'grey' }} />;
@@ -89,45 +81,123 @@ class AvailabilityForm extends Component {
         </View>
         <TextInput
           style={styles.textBox}
-          onChangeText={eventName => this.setState({ eventName })}
+          onChangeText={eventName =>
+            this.setState({
+              availabilty: {
+                ...this.state.availabilty,
+                eventName,
+              },
+            })}
           placeholder="Event Name"
-          value={this.state.eventName}
+          value={this.state.availabilty.eventName}
         />
         <TextInput
           style={styles.textBox}
-          onChangeText={description => this.setState({ description })}
-          placeholder="Description / Instructions"
-          value={this.state.description}
+          onChangeText={description =>
+            this.setState({
+              availabilty: {
+                ...this.state.availabilty,
+                description,
+              },
+            })}
+          placeholder="Description"
+          value={this.state.availabilty.description}
           multiline
         />
         <IconRow
           icon="room"
-          onChange={location => this.setState({ location })}
-          text={this.state.location}
+          onChange={location =>
+            this.setState({
+              availabilty: {
+                ...this.state.availabilty,
+                location,
+              },
+            })}
+          text={this.state.availabilty.location}
           defaultText="Location"
         />
         <IconRow
           icon="update"
-          onChange={duration => this.setState({ duration })}
-          text={this.state.duration}
+          onChange={duration =>
+            this.setState({
+              availabilty: {
+                ...this.state.availabilty,
+                duration,
+              },
+            })}
+          text={this.state.availabilty.duration}
           defaultText="Duration"
         />
         <IconRow
           icon="schedule"
-          onChange={buffer => this.setState({ buffer })}
-          text={this.state.buffer}
+          onChange={buffer =>
+            this.setState({
+              availabilty: {
+                ...this.state.availabilty,
+                buffer,
+              },
+            })}
+          text={this.state.availabilty.buffer}
           defaultText="Event Buffer"
         />
         <IconRow
+          icon="schedule"
+          onChange={earliestTime =>
+            this.setState({
+              availabilty: {
+                ...this.state.availabilty,
+                earliestTime,
+              },
+            })}
+          text={this.state.availabilty.earliestTime}
+          defaultText="Earliest Time"
+        />
+        <IconRow
+          icon="schedule"
+          onChange={latestTime =>
+            this.setState({
+              availabilty: {
+                ...this.state.availabilty,
+                latestTime,
+              },
+            })}
+          text={this.state.availabilty.latestTime}
+          defaultText="Latest Time"
+        />
+        <IconRow
           icon="today"
-          onChange={dateRange => this.setState({ dateRange })}
-          text={this.state.dateRange}
-          defaultText="Date Range"
+          onChange={startDate =>
+            this.setState({
+              availabilty: {
+                ...this.state.availabilty,
+                startDate,
+              },
+            })}
+          text={this.state.availabilty.startDate}
+          defaultText="Start Date"
+        />
+        <IconRow
+          icon="today"
+          onChange={endDate =>
+            this.setState({
+              availabilty: {
+                ...this.state.availabilty,
+                endDate,
+              },
+            })}
+          text={this.state.availabilty.endDate}
+          defaultText="End Date"
         />
         <IconRow
           icon="email"
-          onChange={recipientEmail => this.setState({ recipientEmail })}
-          text={this.state.recipientEmail}
+          onChange={recipientEmail =>
+            this.setState({
+              availabilty: {
+                ...this.state.availabilty,
+                recipientEmail,
+              },
+            })}
+          text={this.state.availabilty.recipientEmail}
           defaultText="Recipient Email"
         />
         <View style={styles.button}>
@@ -138,12 +208,7 @@ class AvailabilityForm extends Component {
               alignItems: 'center',
               padding: 16,
             }}
-            onPress={() => {
-              this.setState({ formCompleted: true });
-              console.log(this.state);
-              console.log('Getting Availability');
-              this.getAvailability();
-            }}
+            onPress={() => this.props.onSubmit(this.state.availabilty)}
             activeOpacity={0.7}
           >
             <Text style={{ fontSize: 22, fontWeight: 'bold', color: 'white' }}>Submit</Text>
@@ -153,5 +218,9 @@ class AvailabilityForm extends Component {
     );
   }
 }
+
+AvailabilityForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default AvailabilityForm;
