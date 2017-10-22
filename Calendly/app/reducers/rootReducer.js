@@ -16,22 +16,23 @@ function availabilties(
       return Object.assign({}, state, {
         currentAvailability: action.form,
       });
-    case actions.REQUEST_AVAILABILITIES:
+    case actions.REQUEST_AVAILABILITY:
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false,
       });
-    case actions.RECEIVE_AVAILABILITIES:
+    case actions.RECEIVE_AVAILABILITY:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        fetchedAvailability: action.availabilities,
-        id: action.id,
-        // byId: action.availabilty_list.b,
-        // allIds: action.events.allIds,
-        lastUpdated: action.receivedAt,
+        byId: {
+          ...state.byId,
+          [action.availabilities.id]: action.availabilities,
+        },
+        allIds: [...state.allIds, action.availabilities.id],
+        currentAvailability: {},
       });
-    case actions.RECEIVE_AVAILABILITIES_FAILURE:
+    case actions.RECEIVE_AVAILABILITY_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
       });

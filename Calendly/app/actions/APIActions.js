@@ -19,9 +19,11 @@ export function receiveAvailabilities(form, json) {
   return {
     type: actions.RECEIVE_AVAILABILITY,
     form,
-    availabilities: json.available_list,
-    id: json.list_id,
-    receivedAt: Date.now(),
+    availabilities: {
+      id: json.list_id,
+      availability_list: json.available_list,
+      receivedAt: Date.now(),
+    },
   };
 }
 
@@ -44,6 +46,7 @@ export function fetchAvailabilities(form) {
         meeting_buffer: form.buffer,
         earliest_meeting_time: form.earliestTime,
         latest_meeting_time: form.latestTime,
+        email: form.recipientEmail,
       },
     })
       .then(
