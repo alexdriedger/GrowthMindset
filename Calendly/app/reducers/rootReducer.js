@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux';
 import * as actions from '../actions/ActionTypes';
 
-function availabilties(
+function availabilities(
   state = {
     isFetching: false,
     didInvalidate: false,
     byId: {},
     allIds: [],
     currentAvailability: {},
+    selectedAvailability: undefined,
   },
   action,
 ) {
@@ -15,6 +16,7 @@ function availabilties(
     case actions.SUBMIT_FORM:
       return Object.assign({}, state, {
         currentAvailability: action.form,
+        selectedAvailability: undefined,
       });
     case actions.REQUEST_AVAILABILITY:
       return Object.assign({}, state, {
@@ -31,6 +33,7 @@ function availabilties(
         },
         allIds: [...state.allIds, action.availabilities.id],
         currentAvailability: {},
+        selectedAvailability: action.availabilities.id,
       });
     case actions.RECEIVE_AVAILABILITY_FAILURE:
       return Object.assign({}, state, {
@@ -52,7 +55,7 @@ function users(
 }
 
 const rootReducer = combineReducers({
-  availabilties,
+  availabilities,
   users,
 });
 

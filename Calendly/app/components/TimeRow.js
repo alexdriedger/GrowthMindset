@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+import * as STYLES from '../common/Styles';
+
 const styles = StyleSheet.create({
   container: {
     height: 120,
-    backgroundColor: '#0C6991',
+    backgroundColor: STYLES.COLOR_PRIMARY,
     justifyContent: 'center',
     alignItems: 'center',
   },

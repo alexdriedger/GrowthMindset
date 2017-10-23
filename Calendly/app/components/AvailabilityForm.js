@@ -11,6 +11,7 @@ import {
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
+import * as STYLES from '../common/Styles';
 import IconRow from './IconRow';
 import TimeRow from './TimeRow';
 
@@ -69,16 +70,6 @@ class AvailabilityForm extends Component {
     }
     return (
       <ScrollView style={styles.container}>
-        <View
-          style={{
-            height: 62,
-            backgroundColor: '#0C6991',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text style={{ fontSize: 22, fontWeight: 'bold', color: 'white' }}>New Event</Text>
-        </View>
         <TextInput
           style={styles.textBox}
           onChangeText={eventName =>
@@ -203,7 +194,7 @@ class AvailabilityForm extends Component {
         <View style={styles.button}>
           <TouchableOpacity
             style={{
-              backgroundColor: '#0C6991',
+              backgroundColor: STYLES.COLOR_PRIMARY,
               alignSelf: 'stretch',
               alignItems: 'center',
               padding: 16,
