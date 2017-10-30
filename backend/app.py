@@ -1,130 +1,177 @@
+""" Server API for the rendezVous application """
+
 from __future__ import print_function
-import httplib2
-import os
-
-from apiclient import discovery
-from oauth2client import client
-from oauth2client import tools
-from oauth2client.file import Storage
-from flask import Flask, jsonify
-
 from datetime import datetime
 from datetime import timedelta
+import uuid
+import httplib2
+from googleapiclient import discovery
+from oauth2client import client
+from oauth2client.contrib.multiprocess_file_storage import MultiprocessFileStorage
+from flask import Flask, jsonify, request
 
-#try:
-#    import argparse
-#    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-#except ImportError:
-#    flags = None
-flags = None
-
-
-# If modifying these scopes, delete your previously saved credentials
-# at ~/.credentials/calendar-python-quickstart.json
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
+REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Calendar API Python Quickstart'
 
 app = Flask(__name__)
 
-def get_credentials():
-    """Gets valid user credentials from storage.
-
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.  
-    Returns:
-        Credentials, the obtained credential.
-    """
-    dir_name = os.path.dirname(os.path.realpath(__file__))
-    credential_path = os.path.join(dir_name, 'calendar-python-quickstart.json')
-
-    '''
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'calendar-python-quickstart.json')
-    '''
-
-    store = Storage(credential_path)
-    credentials = store.get()
-    if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
-        print('Storing credentials to ' + credential_path)
-    return credentials
-
 @app.route('/helloworld', methods=['GET'])
-def get_test_data():
+def helloworld():
+    """
+    Hello world function to test if the API is up and running.
+    """
     return "Hello world!"
 
-# assumed date format is YYYY-MM-DD
-@app.route('/events/<date>')
-def get_events_for_date(date):
-    time1 = datetime.strptime(date, '%Y-%m-%d')
-    time2 = time1 + timedelta(days=1)
-    timeMin = time1.isoformat() + '-07:00'
-    timeMax = time2.isoformat() + '-07:00'
+@app.route('/login1')
+def login1():
+    """
+    The first step of the OAuth 2.0 login process.
+    Returns a URL that the client has to go to.
+    """
+    flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, scope=SCOPES,
+                                          redirect_uri=REDIRECT_URI)
+    flow.user_agent = APPLICATION_NAME
+    return flow.step1_get_authorize_url()
 
-    eventsResult = service.events().list(
-        calendarId='primary', timeMin=timeMin, timeMax=timeMax, singleEvents=True,
+@app.route('/login2')
+def login2():
+    """
+    The second step of the OAuth 2.0 login process.
+    Once the client has accessed and retrieved the code from the first step of the
+    login process, the client passes the code to this API.
+    """
+    code = request.headers['code']
+    flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, scope=SCOPES,
+                                          redirect_uri=REDIRECT_URI)
+    flow.user_agent = APPLICATION_NAME
+    credentials = flow.step2_exchange(code)
+    storage = MultiprocessFileStorage('credentials', code)
+    storage.put(credentials)
+    return ""
+
+# TODO: change this to a POST method
+@app.route('/submit_form', methods=['GET'])
+def submit_form():
+    """
+    Allows a user to submit a form using the parameters laid out below.
+    Create an available list based on the results from querying the Google Calendar API.
+    Store the result in the database and send a response back to the caller.
+    """
+    # TODO: use location somehow
+    #location = request.headers['location']
+    email = request.headers['email']
+    duration = int(request.headers['duration'])
+    date_range_start = request.headers['date_range_start']
+    date_range_end = request.headers['date_range_end']
+    meeting_buffer = int(request.headers['meeting_buffer'])
+    earliest_meeting_time = request.headers['earliest_meeting_time']
+    latest_meeting_time = request.headers['latest_meeting_time']
+
+    # convert the data to more useable formats
+    buffer_delta = timedelta(minutes=meeting_buffer)
+    earliest_time = datetime.strptime(earliest_meeting_time, '%H:%M').time()
+    latest_time = datetime.strptime(latest_meeting_time, '%H:%M').time()
+
+    # TODO: for now just use this code to access Rendez's calendar
+    code = '4/27zFdVQkYlMS0fwT_mRbb6jFmCyquND3MtjoKQhGeRg'
+
+    # create the service from the given code above
+    storage = MultiprocessFileStorage('credentials', code)
+    credentials = storage.get()
+    http = credentials.authorize(httplib2.Http())
+    service = discovery.build('calendar', 'v3', http=http)
+
+    # TODO:
+    # create a mysql database to store the availability in
+    # do more things..........
+
+    time1 = datetime.strptime(date_range_start, '%Y-%m-%d')
+    time2 = datetime.strptime(date_range_end, '%Y-%m-%d')
+    time_min = time1.isoformat() + '-07:00'
+    time_max = time2.isoformat() + '-07:00'
+
+    events_result = service.events().list(
+        calendarId='primary', timeMin=time_min, timeMax=time_max, singleEvents=True,
         orderBy='startTime').execute()
-    events = eventsResult.get('items', [])
+    events = events_result.get('items', [])
 
     if not events:
         return 'No events for the given date.'
 
-    availablelist = []
-    availablelist.append(timeMin)
-    for event in events:
-        availablelist.append(event['start']['dateTime'])
-        availablelist.append(event['end']['dateTime'])
-    availablelist.append(timeMax)
-    return jsonify({'availablelist': availablelist})
+    available_list = []
 
-    '''
-    availablelist = ""
-    availablelist += timeMin
-    for event in events:
-        availablelist += " - " + event['start']['dateTime']
-        availablelist += "<br>" + event['end']['dateTime']
-    availablelist += " - " + timeMax
-    return availablelist
-    '''
+    for i in range(len(events) + 1):
+        # find the start time of the next possible meeting range
+        if i == 0:
+            start_time = time1
+        else:
+            start_time = datetime.strptime(events[i-1]['end']['dateTime'][:-6],
+                                           '%Y-%m-%dT%H:%M:%S') + buffer_delta
 
-    '''
-    eventlist = ""
-    for event in events:
-        start = event['start']['dateTime']
-        eventlist += start + " " + event['summary'] + "<br>"
-    return eventlist
-    '''
+        # find the end time of the next possible meeting range
+        if i == len(events):
+            end_time = time2
+        else:
+            end_time = datetime.strptime(events[i]['start']['dateTime'][:-6],
+                                         '%Y-%m-%dT%H:%M:%S') - buffer_delta
 
-@app.route('/submit_form', methods=['POST'])
-def submit_form():
-    location = request.form['location']
-    duration = request.form['duration']
-    date_range_start = request.form['date_range_start']
-    date_range_end = request.form['date_range_end']
-    buffer_before = request.form['buffer_before']
-    buffer_after = request.form['buffer_after']
+        # calculate meeting minutes
+        delta = end_time - start_time
+        minutes = delta.total_seconds() / 60
+
+        # loop through the space between meetings in case it is longer than the duration
+        # TODO: this doesn't account for the "earliest_time" specified (i.e. there is a chance the
+        # first event doesn't start at the specified earliest time even if the meeting time works)
+        for j in range(0, int(minutes/duration)):
+            meeting_time = start_time + timedelta(minutes=j * duration)
+            if (meeting_time.time() >= earliest_time and
+                    (meeting_time + timedelta(duration)).time() <= latest_time):
+                available_list.append(meeting_time)
+
+    list_id = str(uuid.uuid4())
+
+    # TODO: store the object in the database according to the database spec document
+    return jsonify({'email': email, 'list_id': list_id, 'available_list': available_list})
+
+@app.route('/confirm_form', methods=['GET'])
+def confirm_form():
+    """
+    Confirm if the available list created by submit_form() should be sent to the specified email.
+    If not, remove it from the database.
+    """
+    #list_id = request.headers['list_id']
+    #list_confirmed = request.headers['list_confirmed']
     # TODO:
-    # use this API call to find all events from timeMin=date_range_start to timeMax=date_range_end:
-    # https://developers.google.com/google-apps/calendar/v3/reference/events/list
-    # with the resulting list, sort through the events and figure out times that fit the duration and buffer lengths
-    # store the created list in a database (possibly by doing this https://docs.python.org/3/library/json.html)
-    # create a mysql database to store the availability in
-    # do more things..........
+    # if list_confirmed is false, remove the entry corresponding to the list_id from the database
+    # if list_confirmed is true, retrieve corresponding entry in the database
+    # and send an email to the receiver of the available list containing the list_id
 
+@app.route('/get_available_lists', methods=['GET'])
+def get_available_lists():
+    """
+    Get all available lists from the database given an email.
+    """
+    #email = request.headers['email']
+    # TODO:
+    # the email should automatically be sent from the app's end when this request is made
+    # (since the user will be logged in under their email, this ensures security)
+    # query the database to find all available lists containing this email
 
-credentials = get_credentials()
-http = credentials.authorize(httplib2.Http())
-service = discovery.build('calendar', 'v3', http=http)
+@app.route('/choose_meeting_time', methods=['GET'])
+def choose_meeting_time():
+    """
+    Choose a time, and update the calendars of the two meeting members accordingly.
+    """
+    #code = request.headers['code']
+    #list_id = request.headers['list_id']
+    #chosen_time = request.headers['chosen_time'] # this must include date
+    # TODO:
+    # use the list_id to get the corresponding available list from the database
+    # keep the duration, location, and creator_code from the entry
+    # delete the available list from the database
+    # create the event for both people attending the meeting by using the code and the creator_code
 
 if __name__ == '__main__':
     app.run(debug=True)

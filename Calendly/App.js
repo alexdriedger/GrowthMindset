@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
-import AvailabilityForm from './app/components/AvailabilityForm';
+import rootReducer from './app/reducers/rootReducer';
+import { RootStack } from './app/nav';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <AvailabilityForm />
-      </View>
+      <Provider store={store}>
+        <RootStack />
+      </Provider>
     );
   }
 }
+
+export default App;
