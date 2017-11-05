@@ -1,0 +1,461 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View>
+  <RCTScrollView
+    ItemSeparatorComponent={[Function]}
+    data={
+      Array [
+        "2017-10-17T00:00:00-07:00",
+        "2017-10-17T09:30:00-07:00",
+        "2017-10-17T11:00:00-07:00",
+        "2017-10-17T12:30:00-07:00",
+        "2017-10-17T14:00:00-07:00",
+        "2017-10-17T15:30:00-07:00",
+        "2017-10-17T17:30:00-07:00",
+        "2017-10-17T17:30:00-07:00",
+        "2017-10-17T19:00:00-07:00",
+        "2017-10-18T00:00:00-07:00",
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    onViewableItemsChanged={undefined}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    updateCellsBatchingPeriod={50}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#00a3fa",
+              "height": 120,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 26,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            7:00 AM
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "grey",
+              "height": 10,
+            }
+          }
+        />
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#00a3fa",
+              "height": 120,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 26,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            4:30 PM
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "grey",
+              "height": 10,
+            }
+          }
+        />
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#00a3fa",
+              "height": 120,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 26,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            6:00 PM
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "grey",
+              "height": 10,
+            }
+          }
+        />
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#00a3fa",
+              "height": 120,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 26,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            7:30 PM
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "grey",
+              "height": 10,
+            }
+          }
+        />
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#00a3fa",
+              "height": 120,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 26,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            9:00 PM
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "grey",
+              "height": 10,
+            }
+          }
+        />
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#00a3fa",
+              "height": 120,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 26,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            10:30 PM
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "grey",
+              "height": 10,
+            }
+          }
+        />
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#00a3fa",
+              "height": 120,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 26,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            12:30 AM
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "grey",
+              "height": 10,
+            }
+          }
+        />
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#00a3fa",
+              "height": 120,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 26,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            12:30 AM
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "grey",
+              "height": 10,
+            }
+          }
+        />
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#00a3fa",
+              "height": 120,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 26,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            2:00 AM
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "grey",
+              "height": 10,
+            }
+          }
+        />
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#00a3fa",
+              "height": 120,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            disabled={false}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "white",
+                "fontSize": 26,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            7:00 AM
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
+
+exports[`renders with an empty list 1`] = `
+<View>
+  <RCTScrollView
+    ItemSeparatorComponent={[Function]}
+    data={Array []}
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    onViewableItemsChanged={undefined}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    updateCellsBatchingPeriod={50}
+    windowSize={21}
+  >
+    <View />
+  </RCTScrollView>
+</View>
+`;
