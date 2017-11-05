@@ -1,5 +1,7 @@
 import unittest
-from backend.database import Database
+import sys
+sys.path.insert(0, '..')
+from database import Database
 
 class TestStringMethods(unittest.TestCase):
 
