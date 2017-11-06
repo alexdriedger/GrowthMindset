@@ -1,12 +1,26 @@
-language: android
+language: python
+python:
+- "3.5"
+env:
+- BACKEND=true
+- BACKEND=false
 before_install: #1.1
 - nvm install 6
 - node --version
 - export TZ=Canada/Pacific
-- cd Calendly
 install: #1.2
-- npm install
+- 'if $BACKEND; then
+    pip install -r requirements.txt;
+    cd backend;
+   else
+    cd Calendly;
+    npm install;
+   fi'
 script:
-- npm test
+- 'if $BACKEND; then
+    python3 run_backend_tests.py;
+   else
+    npm test;
+   fi'
 notifications:
   email: false
