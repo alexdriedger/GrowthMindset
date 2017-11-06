@@ -2,6 +2,7 @@ language: android
 before_install: #1.1
 - nvm install 6
 - node --version
+- export TZ=Canada/Pacific
 - cd Calendly
 install: #1.2
 - npm install
