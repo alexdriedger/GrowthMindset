@@ -9,12 +9,14 @@ from googleapiclient import discovery
 from oauth2client import client
 from oauth2client.contrib.multiprocess_file_storage import MultiprocessFileStorage
 from flask import Flask, jsonify, request
+import database
 
 SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Calendar API Python Quickstart'
 
+db = database.Database()
 app = Flask(__name__)
 
 @app.route('/helloworld', methods=['GET'])
@@ -132,7 +134,8 @@ def submit_form():
 
     list_id = str(uuid.uuid4())
 
-    # TODO: store the object in the database according to the database spec document
+    db.create_event(list_id, code, available_list, duration, email, "lat-lon", "UBC")
+
     return jsonify({'email': email, 'list_id': list_id, 'available_list': available_list})
 
 @app.route('/confirm_form', methods=['GET'])
@@ -153,11 +156,8 @@ def get_available_lists():
     """
     Get all available lists from the database given an email.
     """
-    #email = request.headers['email']
-    # TODO:
-    # the email should automatically be sent from the app's end when this request is made
-    # (since the user will be logged in under their email, this ensures security)
-    # query the database to find all available lists containing this email
+    email = request.headers['email']
+    return jsonify({'available_lists': db.get_events_by_email(email)})
 
 @app.route('/choose_meeting_time', methods=['GET'])
 def choose_meeting_time():
@@ -173,5 +173,25 @@ def choose_meeting_time():
     # delete the available list from the database
     # create the event for both people attending the meeting by using the code and the creator_code
 
+@app.route('/print_database', methods=['GET'])
+def print_database():
+    return str(db.getall())
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
+    '''
+    db.create_event("event1", "Mathew", ["time1", "time2", "time3"], 30, "test@test.com", "lat-lon", "UBC")
+    db.create_event("event42", "Alex", ["noon"], 10, "growth@mindset.com", "lat-longer", "Tim Hortons")
+    db.create_event("event1010101", "Fab", [], 9001, "justdoit", "lat-longest", "Sauder")
+    db.create_event("event???", "Spencer", ["midnight", "never"], 1000, "tesla@tesla.tesla", "lat-lonely", "SFU")
+    db.create_event("event_dup", "Spencer", ["forever"], 45454, "tesla@tesla.tesla", "a place", "UVIC")
+    db.printall()
+    db.delete_event("event1")
+    db.printall()
+    result = db.get_events_by_id("event42")
+    print(result)
+    result2 = db.get_events_by_email("tesla@tesla.tesla")
+    print(result2)
+    result3 = db.get_events_by_email("bad_data")
+    print(result3)
+    '''

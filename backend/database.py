@@ -141,6 +141,12 @@ class Database(object):
             pass
 
         return json.dumps(events)
+    
+    def getall(self):
+        """
+        Gets the table for testing purposes
+        """
+        return pd.read_sql('select * from events;', self.connection)
 
     def printall(self):
         """
