@@ -179,19 +179,3 @@ def print_database():
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
-    '''
-    db.create_event("event1", "Mathew", ["time1", "time2", "time3"], 30, "test@test.com", "lat-lon", "UBC")
-    db.create_event("event42", "Alex", ["noon"], 10, "growth@mindset.com", "lat-longer", "Tim Hortons")
-    db.create_event("event1010101", "Fab", [], 9001, "justdoit", "lat-longest", "Sauder")
-    db.create_event("event???", "Spencer", ["midnight", "never"], 1000, "tesla@tesla.tesla", "lat-lonely", "SFU")
-    db.create_event("event_dup", "Spencer", ["forever"], 45454, "tesla@tesla.tesla", "a place", "UVIC")
-    db.printall()
-    db.delete_event("event1")
-    db.printall()
-    result = db.get_events_by_id("event42")
-    print(result)
-    result2 = db.get_events_by_email("tesla@tesla.tesla")
-    print(result2)
-    result3 = db.get_events_by_email("bad_data")
-    print(result3)
-    '''
