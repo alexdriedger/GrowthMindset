@@ -8,3 +8,5 @@ install: #1.2
 - npm install
 script:
 - npm test
+notifications:
+  email: false
