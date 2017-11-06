@@ -20,7 +20,7 @@ script:
 - 'if $BACKEND; then
     python3 run_backend_tests.py;
    else
-    npm test;
+    npm test -- --coverage;
    fi'
 notifications:
   email: false
