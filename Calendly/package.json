@@ -23,6 +23,7 @@
     "babel-eslint": "^8.0.1",
     "babel-jest": "21.2.0",
     "babel-preset-react-native": "4.0.0",
+    "cavy": "^0.4.1",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^16.0.0",
     "eslint-plugin-import": "^2.7.0",

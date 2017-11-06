@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import { hook } from 'cavy';
 
 import * as STYLES from '../common/Styles';
 import IconRow from './IconRow';
@@ -69,7 +70,7 @@ class AvailabilityForm extends Component {
       return <Text>Loading</Text>;
     }
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView ref={this.props.generateTestHook('AvailabilityForm')} style={styles.container}>
         <TextInput
           style={styles.textBox}
           onChangeText={eventName =>
@@ -193,6 +194,7 @@ class AvailabilityForm extends Component {
         />
         <View style={styles.button}>
           <TouchableOpacity
+            ref={this.props.generateTestHook('AvailabilityForm.Submit')}
             style={{
               backgroundColor: STYLES.COLOR_PRIMARY,
               alignSelf: 'stretch',
@@ -214,4 +216,5 @@ AvailabilityForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default AvailabilityForm;
+const TestableAvailabilityForm = hook(AvailabilityForm);
+export default TestableAvailabilityForm;

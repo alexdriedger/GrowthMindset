@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { hook } from 'cavy';
 
 import ConnectedAvailabilityForm from '../containers/ConnectedAvailabilityForm';
 
@@ -16,4 +17,5 @@ class CreateMeetingScreen extends Component {
   }
 }
 
-export default CreateMeetingScreen;
+const TestableCreateMeetingScreen = hook(CreateMeetingScreen);
+export default TestableCreateMeetingScreen;

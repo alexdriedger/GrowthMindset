@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { hook } from 'cavy';
 
 import * as STYLES from '../common/Styles';
 
@@ -28,6 +29,7 @@ class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
+          ref={this.props.generateTestHook('HomeScreen.CreateMeeting')}
           activeOpacity={0.7}
           style={styles.button}
           onPress={() => this.props.navigation.navigate('CreateMeeting')}
@@ -39,4 +41,5 @@ class HomeScreen extends Component {
   }
 }
 
-export default HomeScreen;
+const TestableHomeScreen = hook(HomeScreen);
+export default TestableHomeScreen;
