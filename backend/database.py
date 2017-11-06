@@ -148,7 +148,7 @@ class Database(object):
         """
         return pd.read_sql('select * from events;', self.connection)
 
-    def printall(self):
+    def printall(self): #pragma: no cover
         """
         Prints the table for testing purposes
         """

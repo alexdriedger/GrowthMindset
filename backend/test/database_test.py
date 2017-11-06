@@ -86,5 +86,8 @@ class TestStringMethods(unittest.TestCase):
         # print(result2)
         # print(result3)
 
-if __name__ == '__main__':
+def run_tests():
     unittest.main()
+
+if __name__ == '__main__':
+    run_tests()
