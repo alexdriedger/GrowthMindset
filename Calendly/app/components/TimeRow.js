@@ -5,14 +5,18 @@ import * as STYLES from '../common/Styles';
 
 const styles = StyleSheet.create({
   container: {
-    height: 120,
-    backgroundColor: STYLES.COLOR_PRIMARY,
+    height: 80,
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 20,
+    borderWidth: 5,
+    borderColor: STYLES.COLOR_PRIMARY,
+    overflow: 'hidden',
   },
   text: {
-    color: 'white',
-    fontSize: 26,
+    color: '#222222',
+    fontSize: 28,
     fontWeight: 'bold',
   },
 });

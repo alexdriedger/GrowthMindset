@@ -9,9 +9,13 @@ const mapStateToProps = (state) => {
   const times =
     typeof selectedAvailability !== 'undefined' ? byId[selectedAvailability].availability_list : [];
 
+  const { duration } = state.availabilities.duration || {
+    duration: 0,
+  };
   return {
     isFetching,
     times,
+    duration,
   };
 };
 
