@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 class PickerRow extends Component {
   render() {
     return (
-      <TouchableOpacity onPress={this.props.onPush}>
+      <TouchableOpacity onPress={() => this.props.onPush()}>
         <View style={styles.container}>
           <Icon name={this.props.icon} size={30} color="black" />
           <TextInput
