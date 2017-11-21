@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 class PickerRow extends Component {
   render() {
     return (
-      <TouchableOpacity onPress={() => this.props.onPush()}>
+      <TouchableOpacity onPress={() => this.props.onPress()}>
         <View style={styles.container}>
           <Icon name={this.props.icon} size={30} color="black" />
           <TextInput
@@ -39,7 +39,7 @@ class PickerRow extends Component {
 PickerRow.propTypes = {
   icon: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  onPush: PropTypes.func.isRequired,
+  onPress: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   defaultText: PropTypes.string.isRequired,
 };

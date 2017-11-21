@@ -143,7 +143,7 @@ class AvailabilityForm extends Component {
                 earliestTime,
               },
             })}
-          onPush={() => console.log(`isFetching is: ${this.state.availabilty}`)}
+          onPress={() => console.log('THIS IS ONE OF MY TESTS')}
           text={this.state.availabilty.earliestTime}
           defaultText="Earliest Time"
         />
@@ -156,7 +156,7 @@ class AvailabilityForm extends Component {
                 latestTime,
               },
             })}
-          onPush={() => console.log('THIS IS A TEST> THE OTHER TIME BUSH BUTTON WORKS')}
+          onPress={() => console.log('THIS IS A TEST> THE OTHER TIME BUSH BUTTON WORKS')}
           text={this.state.availabilty.latestTime}
           defaultText="Latest Time"
         />
