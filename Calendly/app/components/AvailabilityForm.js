@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
+  TimePickerAndroid,
 } from 'react-native';
 import moment from 'moment';
 import PropTypes from 'prop-types';
@@ -15,6 +16,7 @@ import { hook } from 'cavy';
 import * as STYLES from '../common/Styles';
 import IconRow from './IconRow';
 import TimeRow from './TimeRow';
+import PickerRow from './PickerRow';
 
 const styles = StyleSheet.create({
   container: {
@@ -132,7 +134,7 @@ class AvailabilityForm extends Component {
           text={this.state.availabilty.buffer}
           defaultText="Event Buffer"
         />
-        <IconRow
+        <PickerRow
           icon="schedule"
           onChange={earliestTime =>
             this.setState({
@@ -141,10 +143,11 @@ class AvailabilityForm extends Component {
                 earliestTime,
               },
             })}
+          onPush={() => console.log(`isFetching is: ${this.state.availabilty}`);}
           text={this.state.availabilty.earliestTime}
           defaultText="Earliest Time"
         />
-        <IconRow
+        <PickerRow
           icon="schedule"
           onChange={latestTime =>
             this.setState({
@@ -153,6 +156,7 @@ class AvailabilityForm extends Component {
                 latestTime,
               },
             })}
+          onPush={() => this.console.log('THIS IS A TEST> THE OTHER TIME BUSH BUTTON WORKS')}
           text={this.state.availabilty.latestTime}
           defaultText="Latest Time"
         />
