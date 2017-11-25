@@ -46,12 +46,34 @@ function availabilities(
 
 function users(
   state = {
-    byId: {},
-    allIds: [],
+    isFetching: false,
+    didInvalidate: false,
+    currentUser: {},
   },
   action,
 ) {
-  return state;
+  switch (action.type) {
+    case actions.REQUEST_USER:
+      return Object.assign({}, state, {
+        isFetching: true,
+        didInvalidate: false,
+      });
+    case actions.RECEIVE_USER_SUCCESS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        currentUser: action.user,
+      });
+    case actions.RECEIVE_USER_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+      });
+    case actions.LOG_OUT:
+      return Object.assign({}, state, {
+        currentUser: {},
+      });
+    default:
+      return state;
+  }
 }
 
 const rootReducer = combineReducers({

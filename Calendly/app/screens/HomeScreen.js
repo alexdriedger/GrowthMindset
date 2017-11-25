@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { hook } from 'cavy';
 import { GoogleSignin } from 'react-native-google-signin';
+import { connect } from 'react-redux';
 
+import { logOut } from '../actions/UserActions';
 import * as STYLES from '../common/Styles';
 
 const styles = StyleSheet.create({
@@ -39,9 +40,7 @@ const styles = StyleSheet.create({
 
 class HomeScreen extends Component {
   _logout = async () => {
-    await GoogleSignin.revokeAccess();
-    await GoogleSignin.signOut();
-    console.log('Signed out');
+    this.props.onLogOut();
     this.props.navigation.navigate('Login');
   };
 
@@ -49,7 +48,6 @@ class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          ref={this.props.generateTestHook('HomeScreen.CreateMeeting')}
           activeOpacity={0.7}
           style={styles.button}
           onPress={() => this.props.navigation.navigate('CreateMeeting')}
@@ -68,5 +66,9 @@ class HomeScreen extends Component {
   }
 }
 
-const TestableHomeScreen = hook(HomeScreen);
-export default TestableHomeScreen;
+const mapDispatchToProps = dispatch => ({
+  onLogOut: () => dispatch(logOut()),
+});
+
+const ConnectedHomeScreen = connect(undefined, mapDispatchToProps)(HomeScreen);
+export default ConnectedHomeScreen;
