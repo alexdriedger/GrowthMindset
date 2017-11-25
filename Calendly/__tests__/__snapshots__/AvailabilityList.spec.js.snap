@@ -78,7 +78,7 @@ exports[`renders correctly 1`] = `
               }
             }
           >
-            Last Friday at 8:00 AM
+            Tuesday at 7:00 AM
           </Text>
         </View>
         <View
@@ -121,7 +121,7 @@ exports[`renders correctly 1`] = `
               }
             }
           >
-            Last Friday at 5:30 PM
+            Tuesday at 4:30 PM
           </Text>
         </View>
         <View
@@ -164,7 +164,7 @@ exports[`renders correctly 1`] = `
               }
             }
           >
-            Last Friday at 7:00 PM
+            Tuesday at 6:00 PM
           </Text>
         </View>
         <View
@@ -207,7 +207,7 @@ exports[`renders correctly 1`] = `
               }
             }
           >
-            Last Friday at 8:30 PM
+            Tuesday at 7:30 PM
           </Text>
         </View>
         <View
@@ -250,7 +250,7 @@ exports[`renders correctly 1`] = `
               }
             }
           >
-            Last Friday at 10:00 PM
+            Tuesday at 9:00 PM
           </Text>
         </View>
         <View
@@ -293,7 +293,7 @@ exports[`renders correctly 1`] = `
               }
             }
           >
-            Last Friday at 11:30 PM
+            Tuesday at 10:30 PM
           </Text>
         </View>
         <View
@@ -336,7 +336,7 @@ exports[`renders correctly 1`] = `
               }
             }
           >
-            Last Saturday at 1:30 AM
+            Wednesday at 12:30 AM
           </Text>
         </View>
         <View
@@ -379,7 +379,7 @@ exports[`renders correctly 1`] = `
               }
             }
           >
-            Last Saturday at 1:30 AM
+            Wednesday at 12:30 AM
           </Text>
         </View>
         <View
@@ -422,7 +422,7 @@ exports[`renders correctly 1`] = `
               }
             }
           >
-            Last Saturday at 3:00 AM
+            Wednesday at 2:00 AM
           </Text>
         </View>
         <View
@@ -465,7 +465,7 @@ exports[`renders correctly 1`] = `
               }
             }
           >
-            Last Saturday at 8:00 AM
+            Wednesday at 7:00 AM
           </Text>
         </View>
       </View>

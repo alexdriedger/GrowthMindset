@@ -20,9 +20,8 @@ class AvailabilityList extends Component {
   _renderItem = item => (
     <TimeRow
       text={moment(item.item)
-        .add(1, 'month')
-        .utc()
-        .calendar()}
+        .add(7, 'hours')
+        .format('dddd [at] LT')}
     />
   );
 
