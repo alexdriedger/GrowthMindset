@@ -5,13 +5,18 @@ from datetime import datetime
 from datetime import timedelta
 import uuid
 import httplib2
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from googleapiclient import discovery
 from oauth2client import client
 from oauth2client.contrib.multiprocess_file_storage import MultiprocessFileStorage
 from flask import Flask, jsonify, request
 import database
+import ast
 
-SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
+
+SCOPES = 'https://www.googleapis.com/auth/calendar'
 REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Calendar API Python Quickstart'
@@ -63,7 +68,8 @@ def submit_form():
     """
     # TODO: use location somehow
     #location = request.headers['location']
-    email = request.headers['email']
+    email_creator = request.headers['email_creator']
+    email_responder = request.headers['email_responder']
     duration = int(request.headers['duration'])
     date_range_start = request.headers['date_range_start']
     date_range_end = request.headers['date_range_end']
@@ -76,18 +82,36 @@ def submit_form():
     earliest_time = datetime.strptime(earliest_meeting_time, '%H:%M').time()
     latest_time = datetime.strptime(latest_meeting_time, '%H:%M').time()
 
+    client_id = '559002692075-dd16p5gkema2phtuq4hrt09pbdpnjvb4.apps.googleusercontent.com'
     # TODO: for now just use this code to access Rendez's calendar
     code = '4/27zFdVQkYlMS0fwT_mRbb6jFmCyquND3MtjoKQhGeRg'
+    #code = '4/0aYhK0N_OZvbKXO0toiiLWWekR6_cJs07ab7jajzEmI'
 
     # create the service from the given code above
     storage = MultiprocessFileStorage('credentials', code)
     credentials = storage.get()
+    #print(credentials.to_json())
+    #credentials = client.credentials_from_clientsecrets_and_code(CLIENT_SECRET_FILE, SCOPES, code)
+    #storage.put(credentials)
+    
+    #if (credentials == None):
+    #    print("HERE")
+    #    credentials = client.credentials_from_clientsecrets_and_code(CLIENT_SECRET_FILE, SCOPES, code)
+    '''
+        credentials = client.credentials_from_code('559002692075-dd16p5gkema2phtuq4hrt09pbdpnjvb4.apps.googleusercontent.com',
+                                                   CLIENT_SECRET_FILE,
+                                                   SCOPES,
+                                                   code,
+                                                   user_agent=APPLICATION_NAME)
+        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, scope=SCOPES,
+                                              redirect_uri=REDIRECT_URI)
+        flow.user_agent = APPLICATION_NAME
+        credentials = flow.step2_exchange(code)
+    '''
+    #    storage.put(credentials)
+
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
-
-    # TODO:
-    # create a mysql database to store the availability in
-    # do more things..........
 
     time1 = datetime.strptime(date_range_start, '%Y-%m-%d')
     time2 = datetime.strptime(date_range_end, '%Y-%m-%d')
@@ -134,9 +158,9 @@ def submit_form():
 
     list_id = str(uuid.uuid4())
 
-    db.create_event(list_id, code, available_list, duration, email, "lat-lon", "UBC")
+    db.create_event(list_id, code, available_list, duration, email_creator, email_responder, "lat-lon", "UBC")
 
-    return jsonify({'email': email, 'list_id': list_id, 'available_list': available_list})
+    return jsonify({'email_responder': email_responder, 'list_id': list_id, 'available_list': available_list})
 
 @app.route('/confirm_form', methods=['GET'])
 def confirm_form():
@@ -144,29 +168,71 @@ def confirm_form():
     Confirm if the available list created by submit_form() should be sent to the specified email.
     If not, remove it from the database.
     """
-    #list_id = request.headers['list_id']
-    #list_confirmed = request.headers['list_confirmed']
-    # TODO:
-    # if list_confirmed is false, remove the entry corresponding to the list_id from the database
-    # if list_confirmed is true, retrieve corresponding entry in the database
-    # and send an email to the receiver of the available list containing the list_id
+    list_id = request.headers['list_id']
+    list_confirmed = request.headers['list_confirmed']
+    
+    if list_confirmed == 'true':
+        availability = ast.literal_eval(db.get_events_by_id(list_id))[0]
+
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = "New meeting request: " + availability[0]
+        msg['From'] = "rendezvouscpen321@gmail.com"
+        msg['To'] = availability[5]
+
+        html = "<html><head></head><body>Hey there, you've just been requested to attend a meeting with <b>"""
+        html += availability[4]
+        html += "</b>. The available meeting times are:<ul>"
+        
+        for time in availability[1]:
+            html += "<li>" + time + "</li>"
+
+        html += "</ul>Please respond in the app to the availability list corresponding to the following meeting ID:<br><br>"
+        html += "<span style=\"font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;\">"
+        html += availability[0]
+        html += "</span><br><br>Sincerely,<br>The rendezVous team</body></html>"
+
+        msg.attach(MIMEText(html, 'html'))
+
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+        s.ehlo()
+        s.starttls()
+        s.login("rendezvouscpen321@gmail.com", "vousrende")
+        s.sendmail("rendezvouscpen321@gmail.com",
+                   availability[5],
+                   msg.as_string())
+        s.close()
+
+        return "email sent\n"
+    elif list_confirmed == 'false':
+        db.delete_event(list_id)
+        return "DELETED"
+    else:
+        return "list_confirmed should be either \'true\' or \'false\'"
+
 
 @app.route('/get_available_lists', methods=['GET'])
 def get_available_lists():
     """
     Get all available lists from the database given an email.
     """
-    email = request.headers['email']
-    return jsonify({'available_lists': db.get_events_by_email(email)})
+    email_responder = request.headers['email_responder']
+    return jsonify({'available_lists': db.get_events_by_email(email_responder)})
 
 @app.route('/choose_meeting_time', methods=['GET'])
 def choose_meeting_time():
     """
     Choose a time, and update the calendars of the two meeting members accordingly.
     """
-    #code = request.headers['code']
-    #list_id = request.headers['list_id']
-    #chosen_time = request.headers['chosen_time'] # this must include date
+    code = request.headers['code']
+    list_id = request.headers['list_id']
+    chosen_time = request.headers['chosen_time'] # this must include date
+
+    availability = ast.literal_eval(db.get_events_by_id(list_id))[0]
+
+    creator_code = availability[2]
+    duration = int(availability[3])
+
+    db.delete_event(list_id)
     # TODO:
     # use the list_id to get the corresponding available list from the database
     # keep the duration, location, and creator_code from the entry
@@ -175,7 +241,7 @@ def choose_meeting_time():
 
 @app.route('/print_database', methods=['GET'])
 def print_database():
-    return str(db.getall())
+    return str(db.getall()) + '\n'
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
