@@ -8,6 +8,7 @@ import {
   FlatList,
   ScrollView,
   TimePickerAndroid,
+  DatePickerAndroid,
 } from 'react-native';
 import moment from 'moment';
 import PropTypes from 'prop-types';
@@ -16,7 +17,8 @@ import { hook } from 'cavy';
 import * as STYLES from '../common/Styles';
 import IconRow from './IconRow';
 import TimeRow from './TimeRow';
-import PickerRow from './PickerRow';
+import TimePickerRow from './TimePickerRow';
+import DatePickerRow from './DatePickerRow';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,11 +34,18 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Returns e.g. '3:05'.
+ */
+function _formatTime(hour, minute) {
+  return `${hour}:${minute < 10 ? `0${minute}` : minute}`;
+}
+
 class AvailabilityForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      availabilty: {
+      availability: {
         eventName: '',
         description: '',
         duration: '15',
@@ -45,8 +54,12 @@ class AvailabilityForm extends Component {
         endDate: '2017-10-26',
         buffer: '10',
         recipientEmail: 'spencerspenst@gmail.com',
-        earliestTime: '10:00',
+        earliestTime: '9:00',
+        earliestHour: 9,
+        earliestMinute: 0,
         latestTime: '18:00',
+        latestHour: 18,
+        latestMinute: 0,
       },
       formCompleted: false,
       showList: false,
@@ -55,17 +68,70 @@ class AvailabilityForm extends Component {
 
   renderSeparator = () => <View style={{ height: 10, backgroundColor: 'grey' }} />;
 
-  pickTimeFunction = () => {
-    TimePickerAndroid.open({
-      hour: 14,
-      minute: 0,
-      is24Hour: false, // Will display '2 PM'
-    });
-    //   // if (action !== TimePickerAndroid.dismissedAction) {
-    //   //   // Selected hour (0-23), minute (0-59)
-    //   //   return hour;
-    //   // }
+  pickTimeFunction = async (whichTime) => {
+    try {
+      // Set the initial times of the time picker to the last chosen time for that field
+      initialHour = this.state.availability.latestHour;
+      initialMinute = this.state.availability.latestMinute;
+      if (whichTime === 'earliestTime') {
+        initialHour = this.state.availability.earliestHour;
+        initialMinute = this.state.availability.earliestMinute;
+      }
+
+      const { action, hour, minute } = await TimePickerAndroid.open({
+        hour: initialHour,
+        minute: initialMinute,
+        is24Hour: false,
+      });
+
+      console.log(`read time as: ${hour} hours and ${minute} minutes`);
+      console.log('state is now: ', this.state);
+      if (action !== TimePickerAndroid.dismissedAction) {
+        newTime = _formatTime(hour, minute);
+        if (whichTime === 'earliestTime') {
+          console.log(`setting EARLIEST TIME state as: ${hour} hours and ${minute} minutes. This is formatted as ${newTime}`);
+          this.setState({
+            availability: {
+              ...this.state.availability,
+              earliestTime: newTime,
+              earliestHour: hour,
+              earliestMinute: minute,
+            },
+          });
+          // this.setState({ availablity.earliestTime: `${newTime}` });
+          console.log('state is now: ', this.state);
+        } else {
+          console.log(`setting LATEST TIME state as: ${hour} hours and ${minute} minutes`);
+          this.setState({
+            availability: {
+              ...this.state.availability,
+              latestTime: newTime,
+              latestHour: hour,
+              latestMinute: minute,
+            },
+          });
+          console.log('state is now: ', this.state);
+        }
+      }
+    } catch ({ code, message }) {
+      console.warn('Cannot open time picker', message);
+    }
   };
+
+  // pickDateFunction = async (whichDate) => {
+  //   try {
+  //     const {action, year, month, day} = await DatePickerAndroid.open({
+  //       // Use `new Date()` for current date.
+  //       // May 25 2020. Month 0 is January.
+  //       date: new Date()
+  //     });
+  //     if (action !== DatePickerAndroid.dismissedAction) {
+  //       // Selected year, month (0-11), day
+  //       // this.setState();
+  //     }
+  //   } catch ({code, message}) {
+  //     console.warn('Cannot open date picker', message);
+  // };
 
   render() {
     if (this.state.formCompleted) {
@@ -89,123 +155,125 @@ class AvailabilityForm extends Component {
           style={styles.textBox}
           onChangeText={eventName =>
             this.setState({
-              availabilty: {
-                ...this.state.availabilty,
+              availability: {
+                ...this.state.availability,
                 eventName,
               },
             })}
           placeholder="Event Name"
-          value={this.state.availabilty.eventName}
+          value={this.state.availability.eventName}
         />
         <TextInput
           style={styles.textBox}
           onChangeText={description =>
             this.setState({
-              availabilty: {
-                ...this.state.availabilty,
+              availability: {
+                ...this.state.availability,
                 description,
               },
             })}
           placeholder="Description"
-          value={this.state.availabilty.description}
+          value={this.state.availability.description}
           multiline
         />
         <IconRow
           icon="room"
           onChange={location =>
             this.setState({
-              availabilty: {
-                ...this.state.availabilty,
+              availability: {
+                ...this.state.availability,
                 location,
               },
             })}
-          text={this.state.availabilty.location}
+          text={this.state.availability.location}
           defaultText="Location"
         />
         <IconRow
           icon="update"
           onChange={duration =>
             this.setState({
-              availabilty: {
-                ...this.state.availabilty,
+              availability: {
+                ...this.state.availability,
                 duration,
               },
             })}
-          text={this.state.availabilty.duration}
+          text={this.state.availability.duration}
           defaultText="Duration"
         />
         <IconRow
           icon="schedule"
           onChange={buffer =>
             this.setState({
-              availabilty: {
-                ...this.state.availabilty,
+              availability: {
+                ...this.state.availability,
                 buffer,
               },
             })}
-          text={this.state.availabilty.buffer}
+          text={this.state.availability.buffer}
           defaultText="Event Buffer"
         />
-        <PickerRow
+        <TimePickerRow
           icon="schedule"
           onChange={earliestTime =>
             this.setState({
-              availabilty: {
-                ...this.state.availabilty,
+              availability: {
+                ...this.state.availability,
                 earliestTime,
               },
             })}
-          onPress={() => this.pickTimeFunction()}
-          text={this.state.availabilty.earliestTime}
-          defaultText="Earliest Time"
+          onPress={() => this.pickTimeFunction('earliestTime')}
+          text={this.state.availability.earliestTime}
+          defaultText={this.state.availability.earliestTime}
         />
-        <PickerRow
+        <TimePickerRow
           icon="schedule"
           onChange={latestTime =>
             this.setState({
-              availabilty: {
-                ...this.state.availabilty,
+              availability: {
+                ...this.state.availability,
                 latestTime,
               },
             })}
-          onPress={() => console.log('THIS IS A TEST> THE OTHER TIME BUSH BUTTON WORKS')}
-          text={this.state.availabilty.latestTime}
-          defaultText="Latest Time"
+          onPress={() => this.pickTimeFunction('latestTime')}
+          text={this.state.availability.latestTime}
+          defaultText={this.state.availability.latestTime}
         />
         <IconRow
           icon="today"
           onChange={startDate =>
             this.setState({
-              availabilty: {
-                ...this.state.availabilty,
+              availability: {
+                ...this.state.availability,
                 startDate,
               },
             })}
-          text={this.state.availabilty.startDate}
+          // onPress={() => this.pickDateFunction('startDate')}
+          text={this.state.startDate}
           defaultText="Start Date"
         />
         <IconRow
           icon="today"
           onChange={endDate =>
             this.setState({
-              availabilty: {
-                ...this.state.availabilty,
+              availability: {
+                ...this.state.availability,
                 endDate,
               },
             })}
-          text={this.state.availabilty.endDate}
+          // onPress={() => this.pickDateFunction('endDate')}
+          text={this.state.endDate}
           defaultText="End Date"
         />
         <IconRow
           icon="email"
           onChange={recipientEmail =>
             this.setState({
-              availabilty: {
-                ...this.state.availabilty,
+              availability: {
+                ...this.state.availability,
                 recipientEmail,
               },
             })}
-          text={this.state.availabilty.recipientEmail}
+          text={this.state.availability.recipientEmail}
           defaultText="Recipient Email"
         />
         <View style={styles.button}>
@@ -217,7 +285,7 @@ class AvailabilityForm extends Component {
               alignItems: 'center',
               padding: 16,
             }}
-            onPress={() => this.props.onSubmit(this.state.availabilty)}
+            onPress={() => this.props.onSubmit(this.state.availability)}
             activeOpacity={0.7}
           >
             <Text style={{ fontSize: 22, fontWeight: 'bold', color: 'white' }}>Submit</Text>
@@ -227,19 +295,6 @@ class AvailabilityForm extends Component {
     );
   }
 }
-
-// const {action, hour, minute} = await TimePickerAndroid.open({
-//   hour: 14,
-//   minute: 0,
-//   is24Hour: false, // Will display '2 PM'
-// });
-// if (action !== TimePickerAndroid.dismissedAction) {
-//   // Selected hour (0-23), minute (0-59)
-//   return hour;
-// }}
-// } catch ({code, message}) {
-//   console.warn('Cannot open time picker', message);
-// }
 
 AvailabilityForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,

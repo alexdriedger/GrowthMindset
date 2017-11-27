@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { TextInput, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
+import * as STYLES from '../common/Styles';
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 8,
-    backgroundColor: 'red',
+    backgroundColor: STYLES.COLOR_SECONDARY,
   },
   textBox: {
     flex: 1,
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class PickerRow extends Component {
+class TimePickerRow extends Component {
   render() {
     return (
       <TouchableOpacity onPress={() => this.props.onPress()}>
@@ -27,7 +28,7 @@ class PickerRow extends Component {
           <Text
             style={styles.textBox}
             onChangeText={this.props.onChange}
-            // placeholder={this.props.defaultText}
+            placeholder={this.props.defaultText}
           >
             {this.props.text}
           </Text>
@@ -37,7 +38,7 @@ class PickerRow extends Component {
   }
 }
 
-PickerRow.propTypes = {
+TimePickerRow.propTypes = {
   icon: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onPress: PropTypes.func.isRequired,
@@ -45,4 +46,4 @@ PickerRow.propTypes = {
   defaultText: PropTypes.string.isRequired,
 };
 
-export default PickerRow;
+export default TimePickerRow;
