@@ -45,6 +45,7 @@ class AvailabilityForm extends Component {
         recipientEmail: 'spencerspenst@gmail.com',
         earliestTime: '10:00',
         latestTime: '18:00',
+        code: props.authCode,
       },
       formCompleted: false,
       showList: false,

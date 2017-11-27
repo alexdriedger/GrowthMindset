@@ -46,12 +46,22 @@ function availabilities(
 
 function users(
   state = {
-    byId: {},
-    allIds: [],
+    currentUser: undefined,
   },
   action,
 ) {
-  return state;
+  switch (action.type) {
+    case actions.SET_USER:
+      return Object.assign({}, state, {
+        currentUser: action.code,
+      });
+    case actions.CLEAR_USERS:
+      return Object.assign({}, state, {
+        currentUser: undefined,
+      });
+    default:
+      return state;
+  }
 }
 
 const rootReducer = combineReducers({
