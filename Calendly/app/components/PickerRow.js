@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { TextInput, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 
@@ -24,12 +24,13 @@ class PickerRow extends Component {
       <TouchableOpacity onPress={() => this.props.onPress()}>
         <View style={styles.container}>
           <Icon name={this.props.icon} size={30} color="black" />
-          <TextInput
+          <Text
             style={styles.textBox}
             onChangeText={this.props.onChange}
-            placeholder={this.props.defaultText}
-            value={this.props.text}
-          />
+            // placeholder={this.props.defaultText}
+          >
+            {this.props.text}
+          </Text>
         </View>
       </TouchableOpacity>
     );

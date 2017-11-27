@@ -55,6 +55,18 @@ class AvailabilityForm extends Component {
 
   renderSeparator = () => <View style={{ height: 10, backgroundColor: 'grey' }} />;
 
+  pickTimeFunction = () => {
+    TimePickerAndroid.open({
+      hour: 14,
+      minute: 0,
+      is24Hour: false, // Will display '2 PM'
+    });
+    //   // if (action !== TimePickerAndroid.dismissedAction) {
+    //   //   // Selected hour (0-23), minute (0-59)
+    //   //   return hour;
+    //   // }
+  };
+
   render() {
     if (this.state.formCompleted) {
       if (this.state.showList) {
@@ -143,7 +155,7 @@ class AvailabilityForm extends Component {
                 earliestTime,
               },
             })}
-          onPress={() => console.log('THIS IS ONE OF MY TESTS')}
+          onPress={() => this.pickTimeFunction()}
           text={this.state.availabilty.earliestTime}
           defaultText="Earliest Time"
         />
@@ -215,6 +227,19 @@ class AvailabilityForm extends Component {
     );
   }
 }
+
+// const {action, hour, minute} = await TimePickerAndroid.open({
+//   hour: 14,
+//   minute: 0,
+//   is24Hour: false, // Will display '2 PM'
+// });
+// if (action !== TimePickerAndroid.dismissedAction) {
+//   // Selected hour (0-23), minute (0-59)
+//   return hour;
+// }}
+// } catch ({code, message}) {
+//   console.warn('Cannot open time picker', message);
+// }
 
 AvailabilityForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,

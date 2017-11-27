@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<View>
+<View
+  style={
+    Object {
+      "backgroundColor": "#00a3fa",
+    }
+  }
+>
   <RCTScrollView
     ItemSeparatorComponent={[Function]}
     data={
@@ -49,9 +55,13 @@ exports[`renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "#00a3fa",
-              "height": 120,
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#00a3fa",
+              "borderRadius": 20,
+              "borderWidth": 5,
+              "height": 80,
               "justifyContent": "center",
+              "overflow": "hidden",
             }
           }
         >
@@ -62,20 +72,20 @@ exports[`renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "color": "white",
-                "fontSize": 26,
+                "color": "#222222",
+                "fontSize": 28,
                 "fontWeight": "bold",
               }
             }
           >
-            7:00 AM
+            11/17/2017
           </Text>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "grey",
-              "height": 10,
+              "backgroundColor": "#00a3fa",
+              "height": 5,
             }
           }
         />
@@ -88,9 +98,13 @@ exports[`renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "#00a3fa",
-              "height": 120,
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#00a3fa",
+              "borderRadius": 20,
+              "borderWidth": 5,
+              "height": 80,
               "justifyContent": "center",
+              "overflow": "hidden",
             }
           }
         >
@@ -101,20 +115,20 @@ exports[`renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "color": "white",
-                "fontSize": 26,
+                "color": "#222222",
+                "fontSize": 28,
                 "fontWeight": "bold",
               }
             }
           >
-            4:30 PM
+            11/17/2017
           </Text>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "grey",
-              "height": 10,
+              "backgroundColor": "#00a3fa",
+              "height": 5,
             }
           }
         />
@@ -127,9 +141,13 @@ exports[`renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "#00a3fa",
-              "height": 120,
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#00a3fa",
+              "borderRadius": 20,
+              "borderWidth": 5,
+              "height": 80,
               "justifyContent": "center",
+              "overflow": "hidden",
             }
           }
         >
@@ -140,20 +158,20 @@ exports[`renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "color": "white",
-                "fontSize": 26,
+                "color": "#222222",
+                "fontSize": 28,
                 "fontWeight": "bold",
               }
             }
           >
-            6:00 PM
+            11/17/2017
           </Text>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "grey",
-              "height": 10,
+              "backgroundColor": "#00a3fa",
+              "height": 5,
             }
           }
         />
@@ -166,9 +184,13 @@ exports[`renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "#00a3fa",
-              "height": 120,
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#00a3fa",
+              "borderRadius": 20,
+              "borderWidth": 5,
+              "height": 80,
               "justifyContent": "center",
+              "overflow": "hidden",
             }
           }
         >
@@ -179,20 +201,20 @@ exports[`renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "color": "white",
-                "fontSize": 26,
+                "color": "#222222",
+                "fontSize": 28,
                 "fontWeight": "bold",
               }
             }
           >
-            7:30 PM
+            11/17/2017
           </Text>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "grey",
-              "height": 10,
+              "backgroundColor": "#00a3fa",
+              "height": 5,
             }
           }
         />
@@ -205,9 +227,13 @@ exports[`renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "#00a3fa",
-              "height": 120,
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#00a3fa",
+              "borderRadius": 20,
+              "borderWidth": 5,
+              "height": 80,
               "justifyContent": "center",
+              "overflow": "hidden",
             }
           }
         >
@@ -218,20 +244,20 @@ exports[`renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "color": "white",
-                "fontSize": 26,
+                "color": "#222222",
+                "fontSize": 28,
                 "fontWeight": "bold",
               }
             }
           >
-            9:00 PM
+            11/17/2017
           </Text>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "grey",
-              "height": 10,
+              "backgroundColor": "#00a3fa",
+              "height": 5,
             }
           }
         />
@@ -244,9 +270,13 @@ exports[`renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "#00a3fa",
-              "height": 120,
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#00a3fa",
+              "borderRadius": 20,
+              "borderWidth": 5,
+              "height": 80,
               "justifyContent": "center",
+              "overflow": "hidden",
             }
           }
         >
@@ -257,20 +287,20 @@ exports[`renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "color": "white",
-                "fontSize": 26,
+                "color": "#222222",
+                "fontSize": 28,
                 "fontWeight": "bold",
               }
             }
           >
-            10:30 PM
+            11/17/2017
           </Text>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "grey",
-              "height": 10,
+              "backgroundColor": "#00a3fa",
+              "height": 5,
             }
           }
         />
@@ -283,9 +313,13 @@ exports[`renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "#00a3fa",
-              "height": 120,
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#00a3fa",
+              "borderRadius": 20,
+              "borderWidth": 5,
+              "height": 80,
               "justifyContent": "center",
+              "overflow": "hidden",
             }
           }
         >
@@ -296,20 +330,20 @@ exports[`renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "color": "white",
-                "fontSize": 26,
+                "color": "#222222",
+                "fontSize": 28,
                 "fontWeight": "bold",
               }
             }
           >
-            12:30 AM
+            11/18/2017
           </Text>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "grey",
-              "height": 10,
+              "backgroundColor": "#00a3fa",
+              "height": 5,
             }
           }
         />
@@ -322,9 +356,13 @@ exports[`renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "#00a3fa",
-              "height": 120,
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#00a3fa",
+              "borderRadius": 20,
+              "borderWidth": 5,
+              "height": 80,
               "justifyContent": "center",
+              "overflow": "hidden",
             }
           }
         >
@@ -335,20 +373,20 @@ exports[`renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "color": "white",
-                "fontSize": 26,
+                "color": "#222222",
+                "fontSize": 28,
                 "fontWeight": "bold",
               }
             }
           >
-            12:30 AM
+            11/18/2017
           </Text>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "grey",
-              "height": 10,
+              "backgroundColor": "#00a3fa",
+              "height": 5,
             }
           }
         />
@@ -361,9 +399,13 @@ exports[`renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "#00a3fa",
-              "height": 120,
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#00a3fa",
+              "borderRadius": 20,
+              "borderWidth": 5,
+              "height": 80,
               "justifyContent": "center",
+              "overflow": "hidden",
             }
           }
         >
@@ -374,20 +416,20 @@ exports[`renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "color": "white",
-                "fontSize": 26,
+                "color": "#222222",
+                "fontSize": 28,
                 "fontWeight": "bold",
               }
             }
           >
-            2:00 AM
+            11/18/2017
           </Text>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "grey",
-              "height": 10,
+              "backgroundColor": "#00a3fa",
+              "height": 5,
             }
           }
         />
@@ -400,9 +442,13 @@ exports[`renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "#00a3fa",
-              "height": 120,
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#00a3fa",
+              "borderRadius": 20,
+              "borderWidth": 5,
+              "height": 80,
               "justifyContent": "center",
+              "overflow": "hidden",
             }
           }
         >
@@ -413,13 +459,13 @@ exports[`renders correctly 1`] = `
             ellipsizeMode="tail"
             style={
               Object {
-                "color": "white",
-                "fontSize": 26,
+                "color": "#222222",
+                "fontSize": 28,
                 "fontWeight": "bold",
               }
             }
           >
-            7:00 AM
+            11/18/2017
           </Text>
         </View>
       </View>
@@ -429,7 +475,13 @@ exports[`renders correctly 1`] = `
 `;
 
 exports[`renders with an empty list 1`] = `
-<View>
+<View
+  style={
+    Object {
+      "backgroundColor": "#00a3fa",
+    }
+  }
+>
   <RCTScrollView
     ItemSeparatorComponent={[Function]}
     data={Array []}
