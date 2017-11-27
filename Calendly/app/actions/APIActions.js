@@ -35,10 +35,10 @@ export function receiveAvailabilitiesFailure(error) {
 }
 
 export function fetchAvailabilities(form) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(submitForm(form));
     dispatch(requestAvailabilities(form));
-    return fetch(`${CONSTANTS.API_ENDPOINT}`, {
+    return fetch(`${CONSTANTS.API_ENDPOINT}/submit_form`, {
       headers: {
         duration: form.duration,
         date_range_start: form.startDate,
@@ -62,5 +62,44 @@ export function fetchAvailabilities(form) {
         json => dispatch(receiveAvailabilities(form, json)),
         () => {}, // API call failed, do not process Availabilities
       );
+  };
+}
+
+export function requestRespondingMeetings(authToken) {
+  return {
+    type: actions.REQUEST_RESPONDING_MEETINGS,
+    authToken,
+  };
+}
+
+export function receiveRespondingMeetingsSuccess(response) {
+  return {
+    type: actions.RECEIVE_RESPONDING_MEETINGS_SUCCESS,
+    response,
+  };
+}
+
+export function receiveRespondingMeetingsFailure(error) {
+  return {
+    type: actions.RECEIVE_RESPONDING_MEETINGS_FAILURE,
+    error,
+  };
+}
+
+export function fetchRespondingMeetings(authToken) {
+  return async (dispatch) => {
+    dispatch(requestRespondingMeetings(authToken));
+    try {
+      const response = await fetch(`${CONSTANTS.API_ENDPOINT}/get_available_lists`, {
+        headers: {
+          code: authToken,
+        },
+      });
+      const json = await response.json();
+      console.log(json);
+      dispatch(receiveRespondingMeetingsSuccess(json));
+    } catch (error) {
+      dispatch(receiveRespondingMeetingsFailure(error));
+    }
   };
 }

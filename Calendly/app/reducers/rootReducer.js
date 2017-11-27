@@ -39,6 +39,15 @@ function availabilities(
       return Object.assign({}, state, {
         isFetching: false,
       });
+    case actions.CLEAR_USERS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        didInvalidate: false,
+        byId: {},
+        allIds: [],
+        currentAvailability: {},
+        selectedAvailability: undefined,
+      });
     default:
       return state;
   }

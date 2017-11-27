@@ -1,5 +1,4 @@
 import * as actions from './ActionTypes';
-import * as CONSTANTS from '../common/Constants';
 
 export function setUser(code) {
   return {
