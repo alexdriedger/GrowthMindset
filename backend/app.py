@@ -14,9 +14,10 @@ from oauth2client.contrib.multiprocess_file_storage import MultiprocessFileStora
 from flask import Flask, jsonify, request
 import database
 import ast
+import sys
 
-
-SCOPES = 'https://www.googleapis.com/auth/calendar'
+SCOPES = ['https://www.googleapis.com/auth/calendar',
+          'https://www.googleapis.com/auth/plus.profile.emails.read']
 REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Calendar API Python Quickstart'
@@ -29,7 +30,7 @@ def helloworld():
     """
     Hello world function to test if the API is up and running.
     """
-    return "Hello world!"
+    return "Hello world!\n"
 
 @app.route('/login1')
 def login1():
@@ -49,14 +50,40 @@ def login2():
     Once the client has accessed and retrieved the code from the first step of the
     login process, the client passes the code to this API.
     """
-    code = request.headers['code']
-    flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, scope=SCOPES,
-                                          redirect_uri=REDIRECT_URI)
-    flow.user_agent = APPLICATION_NAME
-    credentials = flow.step2_exchange(code)
-    storage = MultiprocessFileStorage('credentials', code)
-    storage.put(credentials)
-    return ""
+    try:
+        code = request.headers['code']
+        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, scope=SCOPES,
+                                              redirect_uri=REDIRECT_URI)
+        flow.user_agent = APPLICATION_NAME
+        credentials = flow.step2_exchange(code)
+        storage = MultiprocessFileStorage('credentials', code)
+        storage.put(credentials)
+    except:
+        return jsonify({'success': False, 'response_message': "ERROR: " + str(sys.exc_info())})
+    return jsonify({'success': True, 'response_message': "User successfully authenticated!"})
+
+def get_user_email(credentials):
+  """
+  Send a request to the Plus API to retrieve the user's email.
+
+  Args:
+    credentials: oauth2client.client.OAuth2Credentials instance to authorize the
+                 request.
+  Returns:
+    User information as a dict.
+  """
+  plus_service = discovery.build(
+      serviceName='plus', version='v1',
+      http=credentials.authorize(httplib2.Http()))
+  user_info = None
+  try:
+    user_info = plus_service.people().get(userId="me").execute()
+  except:
+    return 'An error occurred: ' + str(sys.exc_info())
+  if user_info and user_info.get('id'):
+    return user_info['emails'][0]['value']
+  else:
+    raise NoUserIdException()
 
 # TODO: change this to a POST method
 @app.route('/submit_form', methods=['GET'])
@@ -68,7 +95,7 @@ def submit_form():
     """
     # TODO: use location somehow
     #location = request.headers['location']
-    email_creator = request.headers['email_creator']
+    code = request.headers['code']
     email_responder = request.headers['email_responder']
     duration = int(request.headers['duration'])
     date_range_start = request.headers['date_range_start']
@@ -82,34 +109,17 @@ def submit_form():
     earliest_time = datetime.strptime(earliest_meeting_time, '%H:%M').time()
     latest_time = datetime.strptime(latest_meeting_time, '%H:%M').time()
 
-    client_id = '559002692075-dd16p5gkema2phtuq4hrt09pbdpnjvb4.apps.googleusercontent.com'
-    # TODO: for now just use this code to access Rendez's calendar
-    code = '4/27zFdVQkYlMS0fwT_mRbb6jFmCyquND3MtjoKQhGeRg'
-    #code = '4/0aYhK0N_OZvbKXO0toiiLWWekR6_cJs07ab7jajzEmI'
-
-    # create the service from the given code above
+    # create the service from the supplied code
     storage = MultiprocessFileStorage('credentials', code)
     credentials = storage.get()
+
+    email_creator = get_user_email(credentials)
+
+    # TODO: this is code that should ideally work with the pretty login screen Alex made but doesn't :(
     #print(credentials.to_json())
     #credentials = client.credentials_from_clientsecrets_and_code(CLIENT_SECRET_FILE, SCOPES, code)
     #storage.put(credentials)
     
-    #if (credentials == None):
-    #    print("HERE")
-    #    credentials = client.credentials_from_clientsecrets_and_code(CLIENT_SECRET_FILE, SCOPES, code)
-    '''
-        credentials = client.credentials_from_code('559002692075-dd16p5gkema2phtuq4hrt09pbdpnjvb4.apps.googleusercontent.com',
-                                                   CLIENT_SECRET_FILE,
-                                                   SCOPES,
-                                                   code,
-                                                   user_agent=APPLICATION_NAME)
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, scope=SCOPES,
-                                              redirect_uri=REDIRECT_URI)
-        flow.user_agent = APPLICATION_NAME
-        credentials = flow.step2_exchange(code)
-    '''
-    #    storage.put(credentials)
-
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
 
@@ -124,7 +134,7 @@ def submit_form():
     events = events_result.get('items', [])
 
     if not events:
-        return 'No events for the given date.'
+        return 'No events for the given date.\n'
 
     available_list = []
 
@@ -205,17 +215,19 @@ def confirm_form():
         return "email sent\n"
     elif list_confirmed == 'false':
         db.delete_event(list_id)
-        return "DELETED"
+        return "DELETED\n"
     else:
-        return "list_confirmed should be either \'true\' or \'false\'"
-
+        return "list_confirmed should be either \'true\' or \'false\'\n"
 
 @app.route('/get_available_lists', methods=['GET'])
 def get_available_lists():
     """
     Get all available lists from the database given an email.
     """
-    email_responder = request.headers['email_responder']
+    code = request.headers['code']
+    storage = MultiprocessFileStorage('credentials', code)
+    credentials = storage.get()
+    email_responder = get_user_email(credentials)
     return jsonify({'available_lists': db.get_events_by_email(email_responder)})
 
 @app.route('/choose_meeting_time', methods=['GET'])
@@ -227,17 +239,57 @@ def choose_meeting_time():
     list_id = request.headers['list_id']
     chosen_time = request.headers['chosen_time'] # this must include date
 
+    # get all useful data from the availability list
     availability = ast.literal_eval(db.get_events_by_id(list_id))[0]
-
     creator_code = availability[2]
     duration = int(availability[3])
-
+    email_creator = availability[4]
+    location = availability[6]
+    location_name = availability[7]
     db.delete_event(list_id)
-    # TODO:
-    # use the list_id to get the corresponding available list from the database
-    # keep the duration, location, and creator_code from the entry
-    # delete the available list from the database
-    # create the event for both people attending the meeting by using the code and the creator_code
+    
+    # create the start and end times based on the creator_code and duration
+    time_start = datetime.strptime(chosen_time, '%Y-%m-%d %H:%M')
+    dateTime_start = time_start.isoformat() + '-08:00'
+    duration_delta = timedelta(minutes=duration)
+    time_end = time_start + duration_delta
+    dateTime_end = time_end.isoformat() + '-08:00'
+
+    # use the provided header code to get the responder's email
+    storage = MultiprocessFileStorage('credentials', code)
+    credentials = storage.get()
+    email_responder = get_user_email(credentials)
+
+    if (email_responder != availability[5]):
+        return "Security vulnerability: email mismatch\n"
+
+    # create the event body
+    event = {
+      'summary': 'rendezVous Meetup at ' + location_name,
+      'location': location,
+      'start': {
+        'dateTime': dateTime_start,
+        'timeZone': 'America/Los_Angeles',
+      },
+      'end': {
+        'dateTime': dateTime_end,
+        'timeZone': 'America/Los_Angeles',
+      },
+      'attendees': [
+        {'email': email_creator},
+        {'email': email_responder},
+      ],
+    }
+
+    # create the event in the creator's calendar
+    creator_storage = MultiprocessFileStorage('credentials', creator_code)
+    creator_credentials = creator_storage.get()
+    creator_http = creator_credentials.authorize(httplib2.Http())
+    creator_service = discovery.build('calendar', 'v3', http=creator_http)
+    creator_event = creator_service.events().insert(calendarId='primary', body=event).execute()
+    print('Event created: ' + str(creator_event.get('htmlLink')))
+
+    return "SUCCESS\n"
 
 @app.route('/print_database', methods=['GET'])
 def print_database():
