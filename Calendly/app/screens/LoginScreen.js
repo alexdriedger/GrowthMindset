@@ -165,6 +165,7 @@ class LoginScreen extends Component {
             backgroundColor: 'white',
             justifyContent: 'center',
             alignItems: 'center',
+            borderRadius: 3,
           }}
           onPress={() => this._linkLogin()}
         >
