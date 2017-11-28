@@ -108,13 +108,14 @@ class LoginScreen extends Component {
 
   _linkLogin = async () => {
     try {
+      console.log('Calling login1');
       const response = await fetch('https://growthmindset-calendly.herokuapp.com/login1');
-      console.log(response);
       const url = response._bodyText;
       await Linking.openURL(url);
       this.setState({ signInPressed: true, error: '' });
     } catch (err) {
       this.setState({ error: 'Oops, something went wrong!' });
+      console.log('Opening link failed :(');
     }
   };
 

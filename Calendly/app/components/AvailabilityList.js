@@ -19,22 +19,23 @@ class AvailabilityList extends Component {
 
   _renderItem = item => (
     <TimeRow
-      text={moment(item.item)
-        .add(7, 'hours')
-        .format('dddd [at] LT')}
+      text={moment(item.item).format('dddd [at] LT')}
+      onPress={() => {
+        console.log(item);
+        this.props.onItemPress(item.index);
+      }}
     />
   );
 
   render() {
-    console.log(`isFetching is: ${this.props.isFetching}`);
-    console.log(`times is: ${this.props.times}`);
-    console.log(`duration is: ${this.props.duration}`);
     return (
       <View style={{ backgroundColor: STYLES.COLOR_PRIMARY }}>
         <FlatList
           data={this.props.times}
           ItemSeparatorComponent={this._renderSeparator}
           renderItem={this._renderItem}
+          isFetching={this.props.isFetching}
+          ListEmptyComponent={() => <View style={{ height: 2000 }} />}
         />
       </View>
     );
@@ -44,6 +45,11 @@ class AvailabilityList extends Component {
 AvailabilityList.propTypes = {
   times: PropTypes.arrayOf(PropTypes.string).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  onItemPress: PropTypes.func,
+};
+
+AvailabilityList.defaultProps = {
+  onItemPress: () => {},
 };
 
 export default AvailabilityList;

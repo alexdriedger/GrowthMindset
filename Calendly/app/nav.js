@@ -9,6 +9,8 @@ import HomeScreen from './screens/HomeScreen';
 import AvailabilityConfirmScreen from './screens/AvailabilityConfirmScreen';
 import CreateMeetingScreen from './screens/CreateMeetingScreen';
 import LoginScreen from './screens/LoginScreen';
+import RespondToMeetingsScreen from './screens/RespondToMeetingsScreen';
+import RespondPickTimeScreen from './screens/RespondPickTimeScreen';
 
 const styles = StyleSheet.create({
   headerStyle: {
@@ -49,6 +51,18 @@ export const RootStack = StackNavigator(
       screen: AvailabilityConfirmScreen,
       navigationOptions: {
         title: 'Confirm',
+      },
+    },
+    RespondToMeetings: {
+      screen: RespondToMeetingsScreen,
+      navigationOptions: {
+        title: 'My Meetings',
+      },
+    },
+    RespondPickTime: {
+      screen: RespondPickTimeScreen,
+      navigationOptions: {
+        title: 'Pick A Time',
       },
     },
   },

@@ -40,6 +40,13 @@ class HomeScreen extends Component {
         >
           <Text style={styles.text}>Create Meeting</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.button}
+          onPress={() => this.props.navigation.navigate('RespondToMeetings')}
+        >
+          <Text style={styles.text}>Meetings Yo</Text>
+        </TouchableOpacity>
         <ConnectedLogOutButton onPress={() => this._logout()} />
       </View>
     );

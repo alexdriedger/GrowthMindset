@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
 
 import * as STYLES from '../common/Styles';
 
@@ -25,10 +26,17 @@ class TimeRow extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>{this.props.text}</Text>
+        <TouchableOpacity onPress={() => this.props.onPress()}>
+          <Text style={styles.text}>{this.props.text}</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
+
+TimeRow.propTypes = {
+  onPress: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+};
 
 export default TimeRow;

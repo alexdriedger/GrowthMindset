@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { hook } from 'cavy';
+import { ScrollView } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 import ConnectedAvailabilityList from '../containers/ConnectedAvailabilityList';
+import ConnectedConfirmButton from '../containers/ConnectedConfirmButton';
 
 class AvailabilityConfirmScreen extends Component {
+  _resetToHome = () => {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Home' })],
+    });
+    this.props.navigation.dispatch(resetAction);
+  };
+
   render() {
     return (
-      <View ref={this.props.generateTestHook('AvailabilityConfirmScreen')} style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
         <ConnectedAvailabilityList />
-      </View>
+        <ConnectedConfirmButton onConfirm={() => this._resetToHome()} />
+      </ScrollView>
     );
   }
 }
 
-const TestableAvailabilityConfirmScreen = hook(AvailabilityConfirmScreen);
-export default TestableAvailabilityConfirmScreen;
+export default AvailabilityConfirmScreen;
