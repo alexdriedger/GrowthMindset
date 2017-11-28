@@ -185,7 +185,7 @@ export function confirmMeeting(time, code, id) {
     try {
       const response = await fetch(`${CONSTANTS.API_ENDPOINT}/choose_meeting_time`, {
         headers: {
-          chosen_time: time.substring(0, 15),
+          chosen_time: time.substring(0, 16),
           code,
           list_id: id,
         },
