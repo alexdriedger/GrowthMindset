@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import { hook } from 'cavy';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import * as STYLES from '../common/Styles';
 import IconRow from './IconRow';
@@ -51,7 +51,7 @@ class AvailabilityForm extends Component {
         duration: '15',
         location: '',
         startDate: moment().format('YYYY-MM-DD'),
-        endDate: moment().format('YYYY-MM-DD'),
+        endDate: moment().add(1, 'day').format('YYYY-MM-DD'),
         buffer: '10',
         recipientEmail: 'spencerspenst@gmail.com',
         earliestTime: '9:00',
@@ -62,8 +62,6 @@ class AvailabilityForm extends Component {
         latestHour: 18,
         latestMinute: 0,
       },
-      formCompleted: false,
-      showList: false,
     };
   }
 
@@ -156,25 +154,10 @@ class AvailabilityForm extends Component {
   };
 
   render() {
-    if (this.state.formCompleted) {
-      if (this.state.showList) {
-        return (
-          <FlatList
-            data={this.state.data}
-            ItemSeparatorComponent={this.renderSeparator}
-            renderItem={(item) => {
-              console.log(item);
-              return <TimeRow text={moment(item.item).format('LT')} />;
-            }}
-          />
-        );
-      }
-      return <Text>Loading</Text>;
-    }
     return (
-      <ScrollView ref={this.props.generateTestHook('AvailabilityForm')} style={styles.container}>
+      <ScrollView style={styles.container}>
         <TextInput
-          style={styles.textBox}
+          style={[styles.textBox, { backgroundColor: STYLES.COLOR_PRIMARY, paddingLeft: 16, color: 'white' }]}
           onChangeText={eventName =>
             this.setState({
               availability: {
@@ -182,9 +165,48 @@ class AvailabilityForm extends Component {
                 eventName,
               },
             })}
-          placeholder="Event Name"
+          placeholder="Enter title"
+          placeholderTextColor="white"
           value={this.state.availability.eventName}
+          underlineColorAndroid="transparent"
         />
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ padding: 16, width: 72 }}>
+            <Icon
+              name="schedule"
+              size={30}
+              color="black"
+            />
+          </View>
+          <View style={{ flexDirection: 'column', flex: 1 }}>
+            <DatePickerRow
+              icon="today"
+              onChange={startDate =>
+                this.setState({
+                  availability: {
+                    ...this.state.availability,
+                    startDate,
+                  },
+                })}
+              onPress={() => this.pickDateFunction('startDate')}
+              text={moment(this.state.availability.startDate).format('ddd[,] MMM D[,] YYYY')}
+              defaultText={moment(this.state.availability.startDate).format('ddd[,] MMM D[,] YYYY')}
+            />
+            <DatePickerRow
+              icon="today"
+              onChange={endDate =>
+                this.setState({
+                  availability: {
+                    ...this.state.availability,
+                    endDate,
+                  },
+                })}
+              onPress={() => this.pickDateFunction('endDate')}
+              text={moment(this.state.availability.endDate).format('ddd[,] MMM D[,] YYYY')}
+              defaultText={moment(this.state.availability.endDate).format('ddd[,] MMM D[,] YYYY')}
+            />
+          </View>
+        </View>
         <TextInput
           style={styles.textBox}
           onChangeText={description =>
@@ -260,32 +282,6 @@ class AvailabilityForm extends Component {
           text={this.state.availability.latestTime}
           defaultText={this.state.availability.latestTime}
         />
-        <DatePickerRow
-          icon="today"
-          onChange={startDate =>
-            this.setState({
-              availability: {
-                ...this.state.availability,
-                startDate,
-              },
-            })}
-          onPress={() => this.pickDateFunction('startDate')}
-          text={this.state.availability.startDate}
-          defaultText={this.state.availability.startDate}
-        />
-        <DatePickerRow
-          icon="today"
-          onChange={endDate =>
-            this.setState({
-              availability: {
-                ...this.state.availability,
-                endDate,
-              },
-            })}
-          onPress={() => this.pickDateFunction('endDate')}
-          text={this.state.availability.endDate}
-          defaultText={this.state.availability.startDate}
-        />
         <IconRow
           icon="email"
           onChange={recipientEmail =>
@@ -300,7 +296,6 @@ class AvailabilityForm extends Component {
         />
         <View style={styles.button}>
           <TouchableOpacity
-            ref={this.props.generateTestHook('AvailabilityForm.Submit')}
             style={{
               backgroundColor: STYLES.COLOR_PRIMARY,
               alignSelf: 'stretch',
@@ -322,5 +317,4 @@ AvailabilityForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-const TestableAvailabilityForm = hook(AvailabilityForm);
-export default TestableAvailabilityForm;
+export default AvailabilityForm;

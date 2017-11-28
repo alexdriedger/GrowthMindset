@@ -44,7 +44,14 @@ export const RootStack = StackNavigator(
     CreateMeeting: {
       screen: CreateMeetingScreen,
       navigationOptions: {
-        title: 'Create Meeting',
+        title: '',
+        headerStyle: [
+          styles.headerStyle,
+          {
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+        ],
       },
     },
     AvailabilityConfirm: {
@@ -67,8 +74,8 @@ export const RootStack = StackNavigator(
     },
   },
   {
+    initialRouteName: 'CreateMeeting',
     navigationOptions: {
-      initialRouteName: 'Home',
       headerStyle: styles.headerStyle,
       headerTitleStyle: styles.headerText,
       headerBackTitleStyle: styles.headerBack,
