@@ -50,14 +50,15 @@ class AvailabilityForm extends Component {
         description: '',
         duration: '15',
         location: '',
-        startDate: '2017-10-24',
-        endDate: '2017-10-26',
+        startDate: moment().format('YYYY-MM-DD'),
+        endDate: moment().format('YYYY-MM-DD'),
         buffer: '10',
         recipientEmail: 'spencerspenst@gmail.com',
         earliestTime: '9:00',
         earliestHour: 9,
         earliestMinute: 0,
         latestTime: '18:00',
+        code: props.authCode,
         latestHour: 18,
         latestMinute: 0,
       },
@@ -71,8 +72,8 @@ class AvailabilityForm extends Component {
   pickTimeFunction = async (whichTime) => {
     try {
       // Set the initial times of the time picker to the last chosen time for that field
-      initialHour = this.state.availability.latestHour;
-      initialMinute = this.state.availability.latestMinute;
+      let initialHour = this.state.availability.latestHour;
+      let initialMinute = this.state.availability.latestMinute;
       if (whichTime === 'earliestTime') {
         initialHour = this.state.availability.earliestHour;
         initialMinute = this.state.availability.earliestMinute;
@@ -87,7 +88,7 @@ class AvailabilityForm extends Component {
       console.log(`read time as: ${hour} hours and ${minute} minutes`);
       console.log('state is now: ', this.state);
       if (action !== TimePickerAndroid.dismissedAction) {
-        newTime = _formatTime(hour, minute);
+        const newTime = _formatTime(hour, minute);
         if (whichTime === 'earliestTime') {
           console.log(`setting EARLIEST TIME state as: ${hour} hours and ${minute} minutes. This is formatted as ${newTime}`);
           this.setState({
@@ -118,20 +119,41 @@ class AvailabilityForm extends Component {
     }
   };
 
-  // pickDateFunction = async (whichDate) => {
-  //   try {
-  //     const {action, year, month, day} = await DatePickerAndroid.open({
-  //       // Use `new Date()` for current date.
-  //       // May 25 2020. Month 0 is January.
-  //       date: new Date()
-  //     });
-  //     if (action !== DatePickerAndroid.dismissedAction) {
-  //       // Selected year, month (0-11), day
-  //       // this.setState();
-  //     }
-  //   } catch ({code, message}) {
-  //     console.warn('Cannot open date picker', message);
-  // };
+  pickDateFunction = async (whichDate) => {
+    try {
+      const {
+        action, year, month, day,
+      } = await DatePickerAndroid.open({
+        // Use `new Date()` for current date.
+        // May 25 2020. Month 0 is January.
+        date: new Date(),
+      });
+      console.log(`the read date is: ${year} ${month} ${day}`);
+      if (action !== DatePickerAndroid.dismissedAction) {
+        const newDate = moment(`${year}-${month + 1}-${day}`, 'YYYY-MM-DD').format('YYYY-MM-DD');
+        if (whichDate === 'startDate') {
+          this.setState({
+            availability: {
+              ...this.state.availability,
+              startDate: newDate,
+            },
+          });
+          // this.setState({ availablity.earliestTime: `${newTime}` });
+          console.log('state is now: ', this.state);
+        } else {
+          this.setState({
+            availability: {
+              ...this.state.availability,
+              endDate: newDate,
+            },
+          });
+          console.log('state is now: ', this.state);
+        }
+      }
+    } catch ({ code, message }) {
+      console.warn('Cannot open date picker', message);
+    }
+  };
 
   render() {
     if (this.state.formCompleted) {
@@ -238,7 +260,7 @@ class AvailabilityForm extends Component {
           text={this.state.availability.latestTime}
           defaultText={this.state.availability.latestTime}
         />
-        <IconRow
+        <DatePickerRow
           icon="today"
           onChange={startDate =>
             this.setState({
@@ -247,11 +269,11 @@ class AvailabilityForm extends Component {
                 startDate,
               },
             })}
-          // onPress={() => this.pickDateFunction('startDate')}
-          text={this.state.startDate}
-          defaultText="Start Date"
+          onPress={() => this.pickDateFunction('startDate')}
+          text={this.state.availability.startDate}
+          defaultText={this.state.availability.startDate}
         />
-        <IconRow
+        <DatePickerRow
           icon="today"
           onChange={endDate =>
             this.setState({
@@ -260,9 +282,9 @@ class AvailabilityForm extends Component {
                 endDate,
               },
             })}
-          // onPress={() => this.pickDateFunction('endDate')}
-          text={this.state.endDate}
-          defaultText="End Date"
+          onPress={() => this.pickDateFunction('endDate')}
+          text={this.state.availability.endDate}
+          defaultText={this.state.availability.startDate}
         />
         <IconRow
           icon="email"
