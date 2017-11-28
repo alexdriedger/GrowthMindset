@@ -22,7 +22,6 @@ REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Calendar API Python Quickstart'
 
-db = database.Database()
 app = Flask(__name__)
 
 @app.route('/helloworld', methods=['GET'])
@@ -93,8 +92,6 @@ def submit_form():
     Create an available list based on the results from querying the Google Calendar API.
     Store the result in the database and send a response back to the caller.
     """
-    # TODO: use location somehow
-    #location = request.headers['location']
     code = request.headers['code']
     email_responder = request.headers['email_responder']
     duration = int(request.headers['duration'])
@@ -103,6 +100,9 @@ def submit_form():
     meeting_buffer = int(request.headers['meeting_buffer'])
     earliest_meeting_time = request.headers['earliest_meeting_time']
     latest_meeting_time = request.headers['latest_meeting_time']
+    location = request.headers['location']
+    summary = request.headers['summary']
+    description = request.headers['description']
 
     # convert the data to more useable formats
     buffer_delta = timedelta(minutes=meeting_buffer)
@@ -125,16 +125,16 @@ def submit_form():
 
     time1 = datetime.strptime(date_range_start, '%Y-%m-%d')
     time2 = datetime.strptime(date_range_end, '%Y-%m-%d')
-    time_min = time1.isoformat() + '-07:00'
-    time_max = time2.isoformat() + '-07:00'
+    time_min = time1.isoformat() + '-08:00'
+    time_max = time2.isoformat() + '-08:00'
 
     events_result = service.events().list(
         calendarId='primary', timeMin=time_min, timeMax=time_max, singleEvents=True,
         orderBy='startTime').execute()
     events = events_result.get('items', [])
 
-    if not events:
-        return 'No events for the given date.\n'
+    #if not events:
+    #return 'No events for the given date.\n'
 
     available_list = []
 
@@ -168,9 +168,19 @@ def submit_form():
 
     list_id = str(uuid.uuid4())
 
-    db.create_event(list_id, code, available_list, duration, email_creator, email_responder, "lat-lon", "UBC")
+    database.create_event(list_id, code, available_list, duration, email_creator, email_responder, location, summary, description)
 
     return jsonify({'email_responder': email_responder, 'list_id': list_id, 'available_list': available_list})
+
+@app.route('/modify_list', methods=['GET'])
+def modify_list():
+    """
+    Remove a specific entry from an availability_list
+    """
+    list_id = request.headers['list_id']
+    list_index = request.headers['list_index']
+
+    return "WORK IN PROGRESS" #TODO
 
 @app.route('/confirm_form', methods=['GET'])
 def confirm_form():
@@ -182,7 +192,7 @@ def confirm_form():
     list_confirmed = request.headers['list_confirmed']
     
     if list_confirmed == 'true':
-        availability = ast.literal_eval(db.get_events_by_id(list_id))[0]
+        availability = ast.literal_eval(database.get_events_by_id(list_id))[0]
 
         msg = MIMEMultipart('alternative')
         msg['Subject'] = "New meeting request: " + availability[0]
@@ -206,6 +216,7 @@ def confirm_form():
         s = smtplib.SMTP('smtp.gmail.com', 587)
         s.ehlo()
         s.starttls()
+        # TODO: this doesn't work on heroku FeelsBadMan
         s.login("rendezvouscpen321@gmail.com", "vousrende")
         s.sendmail("rendezvouscpen321@gmail.com",
                    availability[5],
@@ -214,7 +225,7 @@ def confirm_form():
 
         return "email sent\n"
     elif list_confirmed == 'false':
-        db.delete_event(list_id)
+        database.delete_event(list_id)
         return "DELETED\n"
     else:
         return "list_confirmed should be either \'true\' or \'false\'\n"
@@ -222,13 +233,50 @@ def confirm_form():
 @app.route('/get_available_lists', methods=['GET'])
 def get_available_lists():
     """
-    Get all available lists from the database given an email.
+    Get all available lists from the database given a responder email.
     """
     code = request.headers['code']
     storage = MultiprocessFileStorage('credentials', code)
     credentials = storage.get()
     email_responder = get_user_email(credentials)
-    return jsonify({'available_lists': db.get_events_by_email(email_responder)})
+    available_lists_array = ast.literal_eval(database.get_events_by_email_responder(email_responder))
+    available_lists = {}
+    for available_list in available_lists_array:
+        available_lists[available_list[0]] = {
+            "list_id": available_list[0],
+            "available_list": available_list[1],
+            "creator_code": available_list[2],
+            "duration": available_list[3],
+            "email_creator": available_list[4],
+            "email_responder": available_list[5],
+            "location": available_list[6],
+            "summary": available_list[7],
+            "description": available_list[8]}
+    return jsonify({'available_lists': available_lists})
+
+@app.route('/get_sent_lists', methods=['GET'])
+def get_sent_lists():
+    """
+    Get all available lists from the database given a creator email.
+    """
+    code = request.headers['code']
+    storage = MultiprocessFileStorage('credentials', code)
+    credentials = storage.get()
+    email_creator = get_user_email(credentials)
+    available_lists_array = ast.literal_eval(db.get_events_by_email_creator(email_creator))
+    available_lists = {}
+    for available_list in available_lists_array:
+        available_lists[available_list[0]] = {
+            "list_id": available_list[0],
+            "available_list": available_list[1],
+            "creator_code": available_list[2],
+            "duration": available_list[3],
+            "email_creator": available_list[4],
+            "email_responder": available_list[5],
+            "location": available_list[6],
+            "summary": available_list[7],
+            "description": available_list[8]}
+    return jsonify({'available_lists': available_lists})
 
 @app.route('/choose_meeting_time', methods=['GET'])
 def choose_meeting_time():
@@ -240,13 +288,14 @@ def choose_meeting_time():
     chosen_time = request.headers['chosen_time'] # this must include date
 
     # get all useful data from the availability list
-    availability = ast.literal_eval(db.get_events_by_id(list_id))[0]
+    availability = ast.literal_eval(database.get_events_by_id(list_id))[0]
     creator_code = availability[2]
     duration = int(availability[3])
     email_creator = availability[4]
     location = availability[6]
-    location_name = availability[7]
-    db.delete_event(list_id)
+    summary = availability[7]
+    description = availability[8]
+    database.delete_event(list_id)
     
     # create the start and end times based on the creator_code and duration
     time_start = datetime.strptime(chosen_time, '%Y-%m-%d %H:%M')
@@ -265,8 +314,9 @@ def choose_meeting_time():
 
     # create the event body
     event = {
-      'summary': 'rendezVous Meetup at ' + location_name,
+      'summary': summary,
       'location': location,
+      'description': description,
       'start': {
         'dateTime': dateTime_start,
         'timeZone': 'America/Los_Angeles',
@@ -293,7 +343,7 @@ def choose_meeting_time():
 
 @app.route('/print_database', methods=['GET'])
 def print_database():
-    return str(db.getall()) + '\n'
+    return str(database.getall()) + '\n'
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
