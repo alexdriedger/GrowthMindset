@@ -8,6 +8,7 @@ import * as STYLES from './common/Styles';
 import HomeScreen from './screens/HomeScreen';
 import AvailabilityConfirmScreen from './screens/AvailabilityConfirmScreen';
 import CreateMeetingScreen from './screens/CreateMeetingScreen';
+import LoginScreen from './screens/LoginScreen';
 
 const styles = StyleSheet.create({
   headerStyle: {
@@ -25,6 +26,12 @@ const styles = StyleSheet.create({
 // eslint-disable-next-line
 export const RootStack = StackNavigator(
   {
+    Login: {
+      screen: LoginScreen,
+      navigationOptions: {
+        header: null,
+      },
+    },
     Home: {
       screen: HomeScreen,
       navigationOptions: {

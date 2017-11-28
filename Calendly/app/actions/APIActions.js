@@ -46,7 +46,9 @@ export function fetchAvailabilities(form) {
         meeting_buffer: form.buffer,
         earliest_meeting_time: form.earliestTime,
         latest_meeting_time: form.latestTime,
-        email: form.recipientEmail,
+        email_creator: 'redezvouscpen321@gmail.com',
+        email_responder: form.recipientEmail,
+        code: form.code,
       },
     })
       .then(

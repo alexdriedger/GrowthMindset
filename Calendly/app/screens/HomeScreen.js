@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { hook } from 'cavy';
+import { GoogleSignin } from 'react-native-google-signin';
 
 import * as STYLES from '../common/Styles';
+import ConnectedLogOutButton from '../containers/ConnectedLogOutButton';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,21 +26,24 @@ const styles = StyleSheet.create({
 });
 
 class HomeScreen extends Component {
+  _logout = async () => {
+    this.props.navigation.navigate('Login');
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          ref={this.props.generateTestHook('HomeScreen.CreateMeeting')}
           activeOpacity={0.7}
           style={styles.button}
           onPress={() => this.props.navigation.navigate('CreateMeeting')}
         >
           <Text style={styles.text}>Create Meeting</Text>
         </TouchableOpacity>
+        <ConnectedLogOutButton onPress={() => this._logout()} />
       </View>
     );
   }
 }
 
-const TestableHomeScreen = hook(HomeScreen);
-export default TestableHomeScreen;
+export default HomeScreen;
