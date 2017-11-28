@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, Linking, TextInput, TouchableOpacity } from 'react-native';
-import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -159,12 +158,18 @@ class LoginScreen extends Component {
     }
     return (
       <View style={{ flexDirection: 'column' }}>
-        <GoogleSigninButton
-          style={{ width: 312, height: 56 }}
-          size={GoogleSigninButton.Size.Wide}
-          color={GoogleSigninButton.Color.Light}
+        <TouchableOpacity
+          style={{
+            width: 312,
+            height: 56,
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
           onPress={() => this._linkLogin()}
-        />
+        >
+          <Text style={{ fontSize: 26 }}>Login with Google</Text>
+        </TouchableOpacity>
         <Text style={[styles.subText, { color: 'white' }]}>{this.state.error}</Text>
       </View>
     );

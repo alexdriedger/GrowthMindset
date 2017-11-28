@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { GoogleSignin } from 'react-native-google-signin';
 
 import * as STYLES from '../common/Styles';
 import ConnectedLogOutButton from '../containers/ConnectedLogOutButton';
