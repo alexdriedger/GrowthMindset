@@ -159,3 +159,42 @@ export function confirmAvailability(confirmed, listId) {
     }
   };
 }
+
+export function requestConfirmMeeting() {
+  return {
+    type: actions.REQUEST_CONFIRM_MEETING,
+  };
+}
+
+export function receiveConfirmMeetingSuccess(id) {
+  return {
+    type: actions.REQUEST_CONFIRM_MEETING_SUCCESS,
+    id,
+  };
+}
+
+export function receiveConfirmMeetingFailure() {
+  return {
+    type: actions.REQUEST_CONFIRM_MEETING_FAILURE,
+  };
+}
+
+export function confirmMeeting(time, code, id) {
+  return async (dispatch) => {
+    dispatch(requestConfirmMeeting());
+    try {
+      const response = await fetch(`${CONSTANTS.API_ENDPOINT}/choose_meeting_time`, {
+        headers: {
+          chosen_time: time.substring(0, 15),
+          code,
+          list_id: id,
+        },
+      });
+      console.log(response);
+      console.log('confirm meeting', time, code, id);
+      dispatch(receiveConfirmMeetingSuccess(id));
+    } catch (error) {
+      dispatch(receiveConfirmMeetingFailure());
+    }
+  };
+}

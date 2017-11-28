@@ -32,7 +32,7 @@ class MeetingList extends Component {
   );
 
   render() {
-    console.log(this.props.data);
+    // console.log(this.props.data);
     return (
       <View>
         <FlatList data={this.props.data} renderItem={this._renderItem} />

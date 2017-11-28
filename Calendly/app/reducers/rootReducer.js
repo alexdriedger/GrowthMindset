@@ -65,6 +65,12 @@ function availabilities(
       return Object.assign({}, state, {
         respondTo: action.ids,
       });
+    // case actions.REQUEST_CONFIRM_MEETING_SUCCESS:
+    // const { byId } = state;
+    // delete byId[action.id];
+    // return Object.assign({}, state, {
+    //   byId,
+    // });
     default:
       return state;
   }

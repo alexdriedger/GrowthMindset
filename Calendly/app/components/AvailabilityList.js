@@ -19,9 +19,7 @@ class AvailabilityList extends Component {
 
   _renderItem = item => (
     <TimeRow
-      text={moment(item.item)
-        .add(7, 'hours')
-        .format('dddd [at] LT')}
+      text={moment(item.item).format('dddd [at] LT')}
       onPress={() => {
         console.log(item);
         this.props.onItemPress(item.index);
