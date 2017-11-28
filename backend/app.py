@@ -168,7 +168,7 @@ def submit_form():
 
     list_id = str(uuid.uuid4())
 
-    database.create_event(list_id, code, available_list, duration, email_creator, email_responder, location, summary, description)
+    database.create_event(list_id, available_list, code, duration, email_creator, email_responder, location, summary, description)
 
     return jsonify({'email_responder': email_responder, 'list_id': list_id, 'available_list': available_list})
 
@@ -178,9 +178,28 @@ def modify_list():
     Remove a specific entry from an availability_list
     """
     list_id = request.headers['list_id']
-    list_index = request.headers['list_index']
+    list_index = int(request.headers['list_index'])
+    
+    # this assumes list_id is valid
+    availability = ast.literal_eval(database.get_events_by_id(list_id))[0]
 
-    return "WORK IN PROGRESS" #TODO
+    if (availability[0] != list_id):
+        return "ERROR: database list_id mismatch"
+
+    del availability[1][list_index]
+
+    database.delete_event(availability[0])
+    database.create_event(availability[0],
+                          availability[1],
+                          availability[2],
+                          availability[3],
+                          availability[4],
+                          availability[5],
+                          availability[6],
+                          availability[7],
+                          availability[8])
+
+    return "Database entry successfully modified"
 
 @app.route('/confirm_form', methods=['GET'])
 def confirm_form():
