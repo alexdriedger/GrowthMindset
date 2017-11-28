@@ -7,12 +7,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 8,
+    paddingLeft: 0,
     flex: 1,
   },
   textBox: {
     flex: 1,
     height: 50,
     padding: 8,
+    paddingLeft: 0,
     fontSize: 22,
   },
 });

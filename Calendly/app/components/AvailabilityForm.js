@@ -171,7 +171,7 @@ class AvailabilityForm extends Component {
           underlineColorAndroid="transparent"
         />
         <View style={{ flexDirection: 'row' }}>
-          <View style={{ padding: 16, width: 72 }}>
+          <View style={{ padding: 16, width: 88 }}>
             <Icon
               name="schedule"
               size={30}
@@ -205,6 +205,40 @@ class AvailabilityForm extends Component {
               text={moment(this.state.availability.endDate).format('ddd[,] MMM D[,] YYYY')}
               defaultText={moment(this.state.availability.endDate).format('ddd[,] MMM D[,] YYYY')}
             />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingRight: 48, paddingTop: 16 }}>
+              <View style={{ flexDirection: 'column', flex: 1 }}>
+                <Text>Earliest</Text>
+                <TimePickerRow
+                  icon="schedule"
+                  onChange={earliestTime =>
+                    this.setState({
+                      availability: {
+                        ...this.state.availability,
+                        earliestTime,
+                      },
+                    })}
+                  onPress={() => this.pickTimeFunction('earliestTime')}
+                  text={this.state.availability.earliestTime}
+                  defaultText={this.state.availability.earliestTime}
+                />
+              </View>
+              <View style={{ flexDirection: 'column', flex: 1 }}>
+                <Text>Latest</Text>
+                <TimePickerRow
+                  icon="schedule"
+                  onChange={latestTime =>
+                    this.setState({
+                      availability: {
+                        ...this.state.availability,
+                        latestTime,
+                      },
+                    })}
+                  onPress={() => this.pickTimeFunction('latestTime')}
+                  text={this.state.availability.latestTime}
+                  defaultText={this.state.availability.latestTime}
+                />
+              </View>
+            </View>
           </View>
         </View>
         <TextInput
@@ -255,32 +289,6 @@ class AvailabilityForm extends Component {
             })}
           text={this.state.availability.buffer}
           defaultText="Event Buffer"
-        />
-        <TimePickerRow
-          icon="schedule"
-          onChange={earliestTime =>
-            this.setState({
-              availability: {
-                ...this.state.availability,
-                earliestTime,
-              },
-            })}
-          onPress={() => this.pickTimeFunction('earliestTime')}
-          text={this.state.availability.earliestTime}
-          defaultText={this.state.availability.earliestTime}
-        />
-        <TimePickerRow
-          icon="schedule"
-          onChange={latestTime =>
-            this.setState({
-              availability: {
-                ...this.state.availability,
-                latestTime,
-              },
-            })}
-          onPress={() => this.pickTimeFunction('latestTime')}
-          text={this.state.availability.latestTime}
-          defaultText={this.state.availability.latestTime}
         />
         <IconRow
           icon="email"

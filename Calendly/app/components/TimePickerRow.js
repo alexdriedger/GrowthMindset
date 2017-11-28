@@ -8,13 +8,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 8,
-    backgroundColor: STYLES.COLOR_SECONDARY,
   },
   textBox: {
     flex: 1,
     height: 50,
-    padding: 8,
     fontSize: 22,
   },
 });
@@ -24,7 +21,6 @@ class TimePickerRow extends Component {
     return (
       <TouchableOpacity onPress={() => this.props.onPress()}>
         <View style={styles.container}>
-          <Icon name={this.props.icon} size={30} color="black" />
           <Text
             style={styles.textBox}
             onChangeText={this.props.onChange}
