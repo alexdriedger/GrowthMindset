@@ -115,6 +115,7 @@ class LoginScreen extends Component {
       this.setState({ signInPressed: true, error: '' });
     } catch (err) {
       this.setState({ error: 'Oops, something went wrong!' });
+      console.log('Opening link failed :(');
     }
   };
 

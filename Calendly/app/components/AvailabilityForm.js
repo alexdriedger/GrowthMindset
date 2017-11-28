@@ -35,14 +35,14 @@ class AvailabilityForm extends Component {
     super(props);
     this.state = {
       availabilty: {
-        eventName: '',
-        description: '',
-        duration: '15',
-        location: '',
-        startDate: '2017-10-24',
-        endDate: '2017-10-26',
+        eventName: 'Test Name',
+        description: 'Super important description',
+        duration: '45',
+        location: 'Pizza Hut on Blanca',
+        startDate: '2017-12-10',
+        endDate: '2017-12-12',
         buffer: '10',
-        recipientEmail: 'spencerspenst@gmail.com',
+        recipientEmail: 'rendezvouscpen322@gmail.com',
         earliestTime: '10:00',
         latestTime: '18:00',
         code: props.authCode,

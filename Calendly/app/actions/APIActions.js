@@ -46,9 +46,11 @@ export function fetchAvailabilities(form) {
         meeting_buffer: form.buffer,
         earliest_meeting_time: form.earliestTime,
         latest_meeting_time: form.latestTime,
-        email_creator: 'redezvouscpen321@gmail.com',
         email_responder: form.recipientEmail,
         code: form.code,
+        summary: form.eventName,
+        description: form.description,
+        location: form.location,
       },
     })
       .then(
@@ -75,7 +77,7 @@ export function requestRespondingMeetings(authToken) {
 export function receiveRespondingMeetingsSuccess(response) {
   return {
     type: actions.RECEIVE_RESPONDING_MEETINGS_SUCCESS,
-    response,
+    meetings: response,
   };
 }
 
@@ -83,6 +85,13 @@ export function receiveRespondingMeetingsFailure(error) {
   return {
     type: actions.RECEIVE_RESPONDING_MEETINGS_FAILURE,
     error,
+  };
+}
+
+export function setActiveRespondingMeetings(ids) {
+  return {
+    type: actions.SET_ACTIVE_RESPONDING_MEETINGS,
+    ids,
   };
 }
 
@@ -95,11 +104,58 @@ export function fetchRespondingMeetings(authToken) {
           code: authToken,
         },
       });
+      console.log(response);
       const json = await response.json();
       console.log(json);
-      dispatch(receiveRespondingMeetingsSuccess(json));
+      const arrayIds = [];
+      Object.keys(json.available_lists).forEach((meeting) => {
+        console.log(meeting);
+        arrayIds.push(meeting);
+        dispatch(receiveRespondingMeetingsSuccess(json.available_lists[meeting]));
+      });
+      dispatch(setActiveRespondingMeetings(arrayIds));
     } catch (error) {
       dispatch(receiveRespondingMeetingsFailure(error));
+    }
+  };
+}
+
+export function requestConfirmAvailabilityList(confirmed) {
+  return {
+    type: actions.REQUEST_CONFIRM_AVAILABILITY_LIST,
+    confirmed,
+  };
+}
+
+export function receiveConfirmAvailabilityListSuccess() {
+  return {
+    type: actions.REQUEST_CONFIRM_AVAILABILITY_LIST_SUCCESS,
+  };
+}
+
+export function receiveConfirmAvailabilityListFailure(error) {
+  return {
+    type: actions.REQUEST_CONFIRM_AVAILABILITY_LIST_FAILURE,
+    error,
+  };
+}
+
+export function confirmAvailability(confirmed, listId) {
+  return async (dispatch) => {
+    dispatch(requestConfirmAvailabilityList(confirmed));
+    console.log('Confirmed is: ', confirmed);
+    console.log('List ID is: ', listId);
+    try {
+      const response = await fetch(`${CONSTANTS.API_ENDPOINT}/confirm_form`, {
+        headers: {
+          listConfirmed: confirmed,
+          list_id: listId,
+        },
+      });
+      console.log(response);
+      dispatch(receiveConfirmAvailabilityListSuccess());
+    } catch (error) {
+      dispatch(receiveConfirmAvailabilityListFailure(error));
     }
   };
 }

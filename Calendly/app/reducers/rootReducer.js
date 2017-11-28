@@ -9,6 +9,7 @@ function availabilities(
     allIds: [],
     currentAvailability: {},
     selectedAvailability: undefined,
+    respondTo: [],
   },
   action,
 ) {
@@ -47,6 +48,22 @@ function availabilities(
         allIds: [],
         currentAvailability: {},
         selectedAvailability: undefined,
+      });
+    case actions.REQUEST_RESPONDING_MEETINGS:
+      return Object.assign({}, state, {
+        respondTo: [],
+      });
+    case actions.RECEIVE_RESPONDING_MEETINGS_SUCCESS:
+      return Object.assign({}, state, {
+        byId: {
+          ...state.byId,
+          [action.meetings.list_id]: action.meetings,
+        },
+        allIds: [...new Set([...state.allIds, action.meetings.list_id])],
+      });
+    case actions.SET_ACTIVE_RESPONDING_MEETINGS:
+      return Object.assign({}, state, {
+        respondTo: action.ids,
       });
     default:
       return state;
