@@ -13,9 +13,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchMeetings: (authCode) => {
     dispatch(actions.fetchRespondingMeetings(authCode));
+  },
+  onItemPress: (id) => {
+    ownProps.onItemPress(id);
   },
 });
 

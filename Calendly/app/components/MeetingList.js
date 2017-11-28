@@ -10,18 +10,23 @@ class MeetingList extends Component {
     this.props.fetchMeetings(this.props.authToken);
   }
 
+  // {
+  //   fetch('https://growthmindset-calendly.herokuapp.com/choose_meeting_time', {
+  //     headers: {
+  //       chosen_time: item.item.available_list[3].substring(0, 15),
+  //       code: this.props.authToken,
+  //       list_id: item.item.list_id,
+  //     },
+  //   });
+  // }
+
   _renderItem = item => (
     <MeetingListRow
       lineOne={item.item.summary}
       lineTwo={item.item.email_creator}
       onPress={() => {
-        fetch('https://growthmindset-calendly.herokuapp.com/choose_meeting_time', {
-          headers: {
-            chosen_time: item.item.available_list[3].substring(0, 15),
-            code: this.props.authToken,
-            list_id: item.item.list_id,
-          },
-        });
+        console.log(item.item);
+        this.props.onItemPress(item.item.list_id);
       }}
     />
   );

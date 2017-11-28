@@ -22,7 +22,10 @@ class AvailabilityList extends Component {
       text={moment(item.item)
         .add(7, 'hours')
         .format('dddd [at] LT')}
-      onPress={() => this.props.onItemPress()}
+      onPress={() => {
+        console.log(item);
+        this.props.onItemPress(item.index);
+      }}
     />
   );
 
