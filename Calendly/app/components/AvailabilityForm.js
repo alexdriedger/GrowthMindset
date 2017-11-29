@@ -74,7 +74,7 @@ class AvailabilityForm extends Component {
         startDate: moment().format('YYYY-MM-DD'),
         endDate: moment().add(1, 'day').format('YYYY-MM-DD'),
         buffer: '15',
-        recipientEmail: 'spencerspenst@gmail.com',
+        recipientEmail: '',
         earliestTime: '9:00',
         earliestHour: 9,
         earliestMinute: 0,
@@ -340,19 +340,7 @@ class AvailabilityForm extends Component {
             </View>
           </View>
         </View>
-        <TextInput
-          style={styles.textBox}
-          onChangeText={description =>
-            this.setState({
-              availability: {
-                ...this.state.availability,
-                description,
-              },
-            })}
-          placeholder="Description"
-          value={this.state.availability.description}
-          multiline
-        />
+        <View style={{ height: 1, backgroundColor: 'lightgrey' }} />
         <IconRow
           icon="room"
           onChange={location =>
@@ -363,32 +351,22 @@ class AvailabilityForm extends Component {
               },
             })}
           text={this.state.availability.location}
-          defaultText="Location"
+          defaultText="Add location"
         />
+        <View style={{ height: 1, backgroundColor: 'lightgrey' }} />
         <IconRow
-          icon="update"
-          onChange={duration =>
+          icon="comment"
+          onChange={description =>
             this.setState({
               availability: {
                 ...this.state.availability,
-                duration,
+                description,
               },
             })}
-          text={this.state.availability.duration}
-          defaultText="Duration"
+          defaultText="Add note"
+          text={this.state.availability.description}
         />
-        <IconRow
-          icon="schedule"
-          onChange={buffer =>
-            this.setState({
-              availability: {
-                ...this.state.availability,
-                buffer,
-              },
-            })}
-          text={this.state.availability.buffer}
-          defaultText="Event Buffer"
-        />
+        <View style={{ height: 1, backgroundColor: 'lightgrey' }} />
         <IconRow
           icon="email"
           onChange={recipientEmail =>

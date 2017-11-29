@@ -74,7 +74,7 @@ export const RootStack = StackNavigator(
     },
   },
   {
-    initialRouteName: 'CreateMeeting',
+    initialRouteName: 'Login',
     navigationOptions: {
       headerStyle: styles.headerStyle,
       headerTitleStyle: styles.headerText,
