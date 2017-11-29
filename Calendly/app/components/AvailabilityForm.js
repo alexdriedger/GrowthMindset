@@ -73,7 +73,7 @@ class AvailabilityForm extends Component {
         location: '',
         startDate: moment().format('YYYY-MM-DD'),
         endDate: moment().add(1, 'day').format('YYYY-MM-DD'),
-        buffer: '10',
+        buffer: '15',
         recipientEmail: 'spencerspenst@gmail.com',
         earliestTime: '9:00',
         earliestHour: 9,
@@ -317,6 +317,25 @@ class AvailabilityForm extends Component {
                   >60 min
                   </Text>
                 </TouchableOpacity>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 16 }}>
+                <Text style={{ paddingRight: 8 }}>Give me</Text>
+                <TextInput
+                  style={[styles.textBox]}
+                  onChange={duration =>
+                    this.setState({
+                      availability: {
+                        ...this.state.availability,
+                        duration,
+                      },
+                    })}
+                  placeholder="15"
+                  placeholderTextColor="white"
+                  value={this.state.availability.duration}
+                  underlineColorAndroid="transparent"
+                  keyboardType="numeric"
+                />
+                <Text style={{ paddingLeft: 8 }}>minutes between events</Text>
               </View>
             </View>
           </View>
