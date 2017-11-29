@@ -100,7 +100,7 @@ class HomeScreen extends Component {
             style={styles.button}
             onPress={() => this.props.navigation.navigate('RespondToMeetings')}
           >
-            <Text style={styles.text}>Meetings Yo</Text>
+            <Text style={styles.text}>Pending</Text>
           </TouchableOpacity>
           <ConnectedLogOutButton onPress={() => this._logout()} />
         </View>
