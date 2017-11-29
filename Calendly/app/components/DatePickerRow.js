@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { TextInput, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
@@ -8,22 +7,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 8,
-    backgroundColor: 'green',
+    paddingLeft: 0,
+    flex: 1,
   },
   textBox: {
     flex: 1,
     height: 50,
     padding: 8,
+    paddingLeft: 0,
     fontSize: 22,
+    color: 'black',
   },
 });
 
 class DatePickerRow extends Component {
   render() {
     return (
-      <TouchableOpacity onPress={() => this.props.onPress()}>
+      <TouchableOpacity onPress={() => this.props.onPress()} activeOpacity={0.7}>
         <View style={styles.container}>
-          <Icon name={this.props.icon} size={30} color="black" />
           <Text
             style={styles.textBox}
             onChangeText={this.props.onChange}
