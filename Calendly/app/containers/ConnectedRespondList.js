@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import moment from 'moment';
 import AvailabilityList from '../components/AvailabilityList';
 import * as actions from '../actions/APIActions';
 
@@ -16,12 +17,13 @@ const mapStateToProps = (state, ownProps) => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const { authToken, listId, times } = stateProps;
   const { dispatch } = dispatchProps;
+  const adjustedTimes = times.map(time => moment(time).subtract(8, 'hours'));
   return {
-    times,
+    times: adjustedTimes,
     isFetching: false,
     onItemPress: (index) => {
-      console.log('all times: ', times);
-      const time = times[index];
+      console.log('all times: ', adjustedTimes);
+      const time = adjustedTimes[index];
       console.log('time selected: ', time);
       console.log('merge props stuff: ', time, authToken, listId);
       dispatch(actions.confirmMeeting(time, authToken, listId));
