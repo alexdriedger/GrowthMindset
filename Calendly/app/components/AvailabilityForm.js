@@ -321,21 +321,21 @@ class AvailabilityForm extends Component {
               <View style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 16 }}>
                 <Text style={{ paddingRight: 8 }}>Give me</Text>
                 <TextInput
-                  style={[styles.textBox]}
-                  onChange={duration =>
+                  style={[styles.textBox, { width: 48 }]}
+                  onChange={buffer =>
                     this.setState({
                       availability: {
                         ...this.state.availability,
-                        duration,
+                        buffer,
                       },
                     })}
                   placeholder="15"
                   placeholderTextColor="white"
-                  value={this.state.availability.duration}
+                  value={this.state.availability.buffer}
                   underlineColorAndroid="transparent"
                   keyboardType="numeric"
                 />
-                <Text style={{ paddingLeft: 8 }}>minutes between events</Text>
+                <Text style={{ paddingLeft: 0 }}>minutes between events</Text>
               </View>
             </View>
           </View>
