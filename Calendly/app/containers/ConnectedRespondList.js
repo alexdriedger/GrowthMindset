@@ -17,7 +17,12 @@ const mapStateToProps = (state, ownProps) => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const { authToken, listId, times } = stateProps;
   const { dispatch } = dispatchProps;
-  const adjustedTimes = times.map(time => moment(time).subtract(8, 'hours'));
+  console.log('times: ', times);
+  const adjustedTimes = times.map(time =>
+    moment(time)
+      .subtract(8, 'hours')
+      .format('YYYY-MM-DD hh:mm:ss'));
+  console.log('adjustedTimes: ', adjustedTimes);
   return {
     times: adjustedTimes,
     isFetching: false,
