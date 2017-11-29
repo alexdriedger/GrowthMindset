@@ -54,42 +54,42 @@ exports[`renders correctly 1`] = `
         style={null}
       >
         <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#FFFFFF",
-              "borderColor": "#00a3fa",
-              "borderRadius": 20,
-              "borderWidth": 5,
-              "height": 80,
-              "justifyContent": "center",
-              "overflow": "hidden",
+              "opacity": 1,
             }
           }
+          testID={undefined}
+          tvParallaxProperties={undefined}
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "opacity": 1,
+                "alignItems": "center",
+                "backgroundColor": "#145a91",
+                "borderColor": "white",
+                "borderRadius": 0,
+                "borderWidth": 20,
+                "flexDirection": "column",
+                "height": 120,
+                "justifyContent": "center",
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
           >
             <Text
               accessible={true}
@@ -98,21 +98,37 @@ exports[`renders correctly 1`] = `
               ellipsizeMode="tail"
               style={
                 Object {
-                  "color": "#222222",
-                  "fontSize": 28,
+                  "color": "white",
+                  "fontSize": 26,
                   "fontWeight": "bold",
+                  "textAlign": "center",
                 }
               }
             >
               Tuesday at 12:00 AM
             </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "white",
+                  "fontSize": 22,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Tue Oct 17th, 2017
+            </Text>
           </View>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "#00a3fa",
-              "height": 5,
+              "backgroundColor": "white",
+              "height": 0,
             }
           }
         />
@@ -122,42 +138,42 @@ exports[`renders correctly 1`] = `
         style={null}
       >
         <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#FFFFFF",
-              "borderColor": "#00a3fa",
-              "borderRadius": 20,
-              "borderWidth": 5,
-              "height": 80,
-              "justifyContent": "center",
-              "overflow": "hidden",
+              "opacity": 1,
             }
           }
+          testID={undefined}
+          tvParallaxProperties={undefined}
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "opacity": 1,
+                "alignItems": "center",
+                "backgroundColor": "#145a91",
+                "borderColor": "white",
+                "borderRadius": 0,
+                "borderWidth": 20,
+                "flexDirection": "column",
+                "height": 120,
+                "justifyContent": "center",
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
           >
             <Text
               accessible={true}
@@ -166,21 +182,37 @@ exports[`renders correctly 1`] = `
               ellipsizeMode="tail"
               style={
                 Object {
-                  "color": "#222222",
-                  "fontSize": 28,
+                  "color": "white",
+                  "fontSize": 26,
                   "fontWeight": "bold",
+                  "textAlign": "center",
                 }
               }
             >
               Tuesday at 9:30 AM
             </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "white",
+                  "fontSize": 22,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Tue Oct 17th, 2017
+            </Text>
           </View>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "#00a3fa",
-              "height": 5,
+              "backgroundColor": "white",
+              "height": 0,
             }
           }
         />
@@ -190,42 +222,42 @@ exports[`renders correctly 1`] = `
         style={null}
       >
         <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#FFFFFF",
-              "borderColor": "#00a3fa",
-              "borderRadius": 20,
-              "borderWidth": 5,
-              "height": 80,
-              "justifyContent": "center",
-              "overflow": "hidden",
+              "opacity": 1,
             }
           }
+          testID={undefined}
+          tvParallaxProperties={undefined}
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "opacity": 1,
+                "alignItems": "center",
+                "backgroundColor": "#145a91",
+                "borderColor": "white",
+                "borderRadius": 0,
+                "borderWidth": 20,
+                "flexDirection": "column",
+                "height": 120,
+                "justifyContent": "center",
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
           >
             <Text
               accessible={true}
@@ -234,21 +266,37 @@ exports[`renders correctly 1`] = `
               ellipsizeMode="tail"
               style={
                 Object {
-                  "color": "#222222",
-                  "fontSize": 28,
+                  "color": "white",
+                  "fontSize": 26,
                   "fontWeight": "bold",
+                  "textAlign": "center",
                 }
               }
             >
               Tuesday at 11:00 AM
             </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "white",
+                  "fontSize": 22,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Tue Oct 17th, 2017
+            </Text>
           </View>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "#00a3fa",
-              "height": 5,
+              "backgroundColor": "white",
+              "height": 0,
             }
           }
         />
@@ -258,42 +306,42 @@ exports[`renders correctly 1`] = `
         style={null}
       >
         <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#FFFFFF",
-              "borderColor": "#00a3fa",
-              "borderRadius": 20,
-              "borderWidth": 5,
-              "height": 80,
-              "justifyContent": "center",
-              "overflow": "hidden",
+              "opacity": 1,
             }
           }
+          testID={undefined}
+          tvParallaxProperties={undefined}
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "opacity": 1,
+                "alignItems": "center",
+                "backgroundColor": "#145a91",
+                "borderColor": "white",
+                "borderRadius": 0,
+                "borderWidth": 20,
+                "flexDirection": "column",
+                "height": 120,
+                "justifyContent": "center",
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
           >
             <Text
               accessible={true}
@@ -302,21 +350,37 @@ exports[`renders correctly 1`] = `
               ellipsizeMode="tail"
               style={
                 Object {
-                  "color": "#222222",
-                  "fontSize": 28,
+                  "color": "white",
+                  "fontSize": 26,
                   "fontWeight": "bold",
+                  "textAlign": "center",
                 }
               }
             >
               Tuesday at 12:30 PM
             </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "white",
+                  "fontSize": 22,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Tue Oct 17th, 2017
+            </Text>
           </View>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "#00a3fa",
-              "height": 5,
+              "backgroundColor": "white",
+              "height": 0,
             }
           }
         />
@@ -326,42 +390,42 @@ exports[`renders correctly 1`] = `
         style={null}
       >
         <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#FFFFFF",
-              "borderColor": "#00a3fa",
-              "borderRadius": 20,
-              "borderWidth": 5,
-              "height": 80,
-              "justifyContent": "center",
-              "overflow": "hidden",
+              "opacity": 1,
             }
           }
+          testID={undefined}
+          tvParallaxProperties={undefined}
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "opacity": 1,
+                "alignItems": "center",
+                "backgroundColor": "#145a91",
+                "borderColor": "white",
+                "borderRadius": 0,
+                "borderWidth": 20,
+                "flexDirection": "column",
+                "height": 120,
+                "justifyContent": "center",
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
           >
             <Text
               accessible={true}
@@ -370,21 +434,37 @@ exports[`renders correctly 1`] = `
               ellipsizeMode="tail"
               style={
                 Object {
-                  "color": "#222222",
-                  "fontSize": 28,
+                  "color": "white",
+                  "fontSize": 26,
                   "fontWeight": "bold",
+                  "textAlign": "center",
                 }
               }
             >
               Tuesday at 2:00 PM
             </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "white",
+                  "fontSize": 22,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Tue Oct 17th, 2017
+            </Text>
           </View>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "#00a3fa",
-              "height": 5,
+              "backgroundColor": "white",
+              "height": 0,
             }
           }
         />
@@ -394,42 +474,42 @@ exports[`renders correctly 1`] = `
         style={null}
       >
         <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#FFFFFF",
-              "borderColor": "#00a3fa",
-              "borderRadius": 20,
-              "borderWidth": 5,
-              "height": 80,
-              "justifyContent": "center",
-              "overflow": "hidden",
+              "opacity": 1,
             }
           }
+          testID={undefined}
+          tvParallaxProperties={undefined}
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "opacity": 1,
+                "alignItems": "center",
+                "backgroundColor": "#145a91",
+                "borderColor": "white",
+                "borderRadius": 0,
+                "borderWidth": 20,
+                "flexDirection": "column",
+                "height": 120,
+                "justifyContent": "center",
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
           >
             <Text
               accessible={true}
@@ -438,67 +518,15 @@ exports[`renders correctly 1`] = `
               ellipsizeMode="tail"
               style={
                 Object {
-                  "color": "#222222",
-                  "fontSize": 28,
+                  "color": "white",
+                  "fontSize": 26,
                   "fontWeight": "bold",
+                  "textAlign": "center",
                 }
               }
             >
               Tuesday at 3:30 PM
             </Text>
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "backgroundColor": "#00a3fa",
-              "height": 5,
-            }
-          }
-        />
-      </View>
-      <View
-        onLayout={[Function]}
-        style={null}
-      >
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "backgroundColor": "#FFFFFF",
-              "borderColor": "#00a3fa",
-              "borderRadius": 20,
-              "borderWidth": 5,
-              "height": 80,
-              "justifyContent": "center",
-              "overflow": "hidden",
-            }
-          }
-        >
-          <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              Object {
-                "opacity": 1,
-              }
-            }
-            testID={undefined}
-            tvParallaxProperties={undefined}
-          >
             <Text
               accessible={true}
               allowFontScaling={true}
@@ -506,21 +534,21 @@ exports[`renders correctly 1`] = `
               ellipsizeMode="tail"
               style={
                 Object {
-                  "color": "#222222",
-                  "fontSize": 28,
-                  "fontWeight": "bold",
+                  "color": "white",
+                  "fontSize": 22,
+                  "textAlign": "center",
                 }
               }
             >
-              Tuesday at 5:30 PM
+              Tue Oct 17th, 2017
             </Text>
           </View>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "#00a3fa",
-              "height": 5,
+              "backgroundColor": "white",
+              "height": 0,
             }
           }
         />
@@ -530,42 +558,42 @@ exports[`renders correctly 1`] = `
         style={null}
       >
         <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#FFFFFF",
-              "borderColor": "#00a3fa",
-              "borderRadius": 20,
-              "borderWidth": 5,
-              "height": 80,
-              "justifyContent": "center",
-              "overflow": "hidden",
+              "opacity": 1,
             }
           }
+          testID={undefined}
+          tvParallaxProperties={undefined}
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "opacity": 1,
+                "alignItems": "center",
+                "backgroundColor": "#145a91",
+                "borderColor": "white",
+                "borderRadius": 0,
+                "borderWidth": 20,
+                "flexDirection": "column",
+                "height": 120,
+                "justifyContent": "center",
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
           >
             <Text
               accessible={true}
@@ -574,21 +602,37 @@ exports[`renders correctly 1`] = `
               ellipsizeMode="tail"
               style={
                 Object {
-                  "color": "#222222",
-                  "fontSize": 28,
+                  "color": "white",
+                  "fontSize": 26,
                   "fontWeight": "bold",
+                  "textAlign": "center",
                 }
               }
             >
               Tuesday at 5:30 PM
+            </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "white",
+                  "fontSize": 22,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Tue Oct 17th, 2017
             </Text>
           </View>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "#00a3fa",
-              "height": 5,
+              "backgroundColor": "white",
+              "height": 0,
             }
           }
         />
@@ -598,42 +642,42 @@ exports[`renders correctly 1`] = `
         style={null}
       >
         <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#FFFFFF",
-              "borderColor": "#00a3fa",
-              "borderRadius": 20,
-              "borderWidth": 5,
-              "height": 80,
-              "justifyContent": "center",
-              "overflow": "hidden",
+              "opacity": 1,
             }
           }
+          testID={undefined}
+          tvParallaxProperties={undefined}
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "opacity": 1,
+                "alignItems": "center",
+                "backgroundColor": "#145a91",
+                "borderColor": "white",
+                "borderRadius": 0,
+                "borderWidth": 20,
+                "flexDirection": "column",
+                "height": 120,
+                "justifyContent": "center",
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
           >
             <Text
               accessible={true}
@@ -642,21 +686,121 @@ exports[`renders correctly 1`] = `
               ellipsizeMode="tail"
               style={
                 Object {
-                  "color": "#222222",
-                  "fontSize": 28,
+                  "color": "white",
+                  "fontSize": 26,
                   "fontWeight": "bold",
+                  "textAlign": "center",
+                }
+              }
+            >
+              Tuesday at 5:30 PM
+            </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "white",
+                  "fontSize": 22,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Tue Oct 17th, 2017
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "white",
+              "height": 0,
+            }
+          }
+        />
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          testID={undefined}
+          tvParallaxProperties={undefined}
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#145a91",
+                "borderColor": "white",
+                "borderRadius": 0,
+                "borderWidth": 20,
+                "flexDirection": "column",
+                "height": 120,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "white",
+                  "fontSize": 26,
+                  "fontWeight": "bold",
+                  "textAlign": "center",
                 }
               }
             >
               Tuesday at 7:00 PM
             </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "white",
+                  "fontSize": 22,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Tue Oct 17th, 2017
+            </Text>
           </View>
         </View>
         <View
           style={
             Object {
-              "backgroundColor": "#00a3fa",
-              "height": 5,
+              "backgroundColor": "white",
+              "height": 0,
             }
           }
         />
@@ -666,42 +810,42 @@ exports[`renders correctly 1`] = `
         style={null}
       >
         <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#FFFFFF",
-              "borderColor": "#00a3fa",
-              "borderRadius": 20,
-              "borderWidth": 5,
-              "height": 80,
-              "justifyContent": "center",
-              "overflow": "hidden",
+              "opacity": 1,
             }
           }
+          testID={undefined}
+          tvParallaxProperties={undefined}
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            collapsable={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "opacity": 1,
+                "alignItems": "center",
+                "backgroundColor": "#145a91",
+                "borderColor": "white",
+                "borderRadius": 0,
+                "borderWidth": 20,
+                "flexDirection": "column",
+                "height": 120,
+                "justifyContent": "center",
               }
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
           >
             <Text
               accessible={true}
@@ -710,13 +854,29 @@ exports[`renders correctly 1`] = `
               ellipsizeMode="tail"
               style={
                 Object {
-                  "color": "#222222",
-                  "fontSize": 28,
+                  "color": "white",
+                  "fontSize": 26,
                   "fontWeight": "bold",
+                  "textAlign": "center",
                 }
               }
             >
               Wednesday at 12:00 AM
+            </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              disabled={false}
+              ellipsizeMode="tail"
+              style={
+                Object {
+                  "color": "white",
+                  "fontSize": 22,
+                  "textAlign": "center",
+                }
+              }
+            >
+              Wed Oct 18th, 2017
             </Text>
           </View>
         </View>

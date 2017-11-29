@@ -4,14 +4,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../actions/APIActions';
 
+import * as STYLES from '../common/Styles';
+
 const styles = StyleSheet.create({
   container: {
     height: 72,
-    backgroundColor: 'white',
+    backgroundColor: STYLES.COLOR_PRIMARY,
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
+    color: 'white',
     fontSize: 28,
     fontWeight: 'bold',
   },
