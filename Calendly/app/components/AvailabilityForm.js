@@ -23,6 +23,7 @@ import DatePickerRow from './DatePickerRow';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   textBox: {
     height: 50,
@@ -31,6 +32,26 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
+  },
+  buttonPressed: {
+    backgroundColor: STYLES.COLOR_PRIMARY,
+    borderRadius: 3,
+    borderWidth: 3,
+    borderColor: STYLES.COLOR_PRIMARY,
+  },
+  buttonPressedText: {
+    fontSize: 22,
+    color: 'white',
+  },
+  buttonNotPressed: {
+    backgroundColor: 'white',
+    borderRadius: 3,
+    borderWidth: 3,
+    borderColor: STYLES.COLOR_PRIMARY,
+  },
+  buttonNotPressedText: {
+    fontSize: 22,
+    color: STYLES.COLOR_PRIMARY,
   },
 });
 
@@ -48,7 +69,7 @@ class AvailabilityForm extends Component {
       availability: {
         eventName: '',
         description: '',
-        duration: '15',
+        duration: '30',
         location: '',
         startDate: moment().format('YYYY-MM-DD'),
         endDate: moment().add(1, 'day').format('YYYY-MM-DD'),
@@ -237,6 +258,65 @@ class AvailabilityForm extends Component {
                   text={this.state.availability.latestTime}
                   defaultText={this.state.availability.latestTime}
                 />
+              </View>
+            </View>
+            <View style={{ flexDirection: 'column' }}>
+              <Text style={{ paddingBottom: 8 }}>Duration</Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingRight: 16 }}>
+                <TouchableOpacity
+                  onPress={() => this.setState({
+                    availability: {
+                      ...this.state.availability,
+                      duration: '15',
+                    },
+                  })}
+                  style={[
+                    (this.state.availability.duration === '15') ? styles.buttonPressed : styles.buttonNotPressed,
+                    { padding: 4 },
+                  ]}
+                >
+                  <Text style={[
+                    (this.state.availability.duration === '15') ? styles.buttonPressedText : styles.buttonNotPressedText,
+                  ]}
+                  >15 min
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.setState({
+                    availability: {
+                      ...this.state.availability,
+                      duration: '30',
+                    },
+                  })}
+                  style={[
+                    (this.state.availability.duration === '30') ? styles.buttonPressed : styles.buttonNotPressed,
+                    { padding: 4 },
+                  ]}
+                >
+                  <Text style={[
+                    (this.state.availability.duration === '30') ? styles.buttonPressedText : styles.buttonNotPressedText,
+                  ]}
+                  >30 min
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.setState({
+                    availability: {
+                      ...this.state.availability,
+                      duration: '60',
+                    },
+                  })}
+                  style={[
+                    (this.state.availability.duration === '60') ? styles.buttonPressed : styles.buttonNotPressed,
+                    { padding: 4 },
+                  ]}
+                >
+                  <Text style={[
+                    (this.state.availability.duration === '60') ? styles.buttonPressedText : styles.buttonNotPressedText,
+                  ]}
+                  >60 min
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>

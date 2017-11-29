@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 class TimePickerRow extends Component {
   render() {
     return (
-      <TouchableOpacity onPress={() => this.props.onPress()}>
+      <TouchableOpacity onPress={() => this.props.onPress()} activeOpacity={0.7}>
         <View style={styles.container}>
           <Text
             style={styles.textBox}
