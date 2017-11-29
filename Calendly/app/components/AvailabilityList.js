@@ -11,15 +11,16 @@ class AvailabilityList extends Component {
   _renderSeparator = () => (
     <View
       style={{
-        height: 5,
-        backgroundColor: STYLES.COLOR_PRIMARY,
+        height: 0,
+        backgroundColor: 'white',
       }}
     />
   );
 
   _renderItem = item => (
     <TimeRow
-      text={moment(item.item).format('dddd [at] LT')}
+      text1={moment(item.item).format('dddd [at] LT')}
+      text2={moment(item.item).format('ddd MMM Do[,] YYYY')}
       onPress={() => {
         console.log(item);
         this.props.onItemPress(item.index);

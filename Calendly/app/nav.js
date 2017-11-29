@@ -37,8 +37,9 @@ export const RootStack = StackNavigator(
     Home: {
       screen: HomeScreen,
       navigationOptions: {
-        title: 'rendezVous',
-        headerRight: null,
+        // title: 'rendezVous',
+        // headerRight: null,
+        header: null,
       },
     },
     CreateMeeting: {
