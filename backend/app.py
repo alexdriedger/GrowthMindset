@@ -143,14 +143,14 @@ def submit_form():
         if i == 0:
             start_time = time1
         else:
-            start_time = datetime.strptime(events[i-1]['end']['dateTime'][:-6],
+            start_time = datetime.strptime(events[i-1]['end']['dateTime'][:-1],
                                            '%Y-%m-%dT%H:%M:%S') + buffer_delta
 
         # find the end time of the next possible meeting range
         if i == len(events):
             end_time = time2
         else:
-            end_time = datetime.strptime(events[i]['start']['dateTime'][:-6],
+            end_time = datetime.strptime(events[i]['start']['dateTime'][:-1],
                                          '%Y-%m-%dT%H:%M:%S') - buffer_delta
 
         # calculate meeting minutes
